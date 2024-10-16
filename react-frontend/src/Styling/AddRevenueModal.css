@@ -1,0 +1,71 @@
+/* AddRevenueModal.css */
+
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000; /* Ensures the modal is on top */
+}
+
+.modal-content {
+    background: white;
+    border-radius: 10px;
+    padding: 20px;
+    width: 400px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.modal-content h2 {
+    margin-bottom: 20px;
+}
+
+.modal-content label {
+    display: block;
+    margin-bottom: 10px;
+}
+
+.modal-content input, .modal-content textarea {
+    width: 100%;
+    padding: 8px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+}
+
+.modal-content button {
+    margin-right: 10px;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 5px;
+    font-size: 14px;
+    cursor: pointer;
+}
+
+.modal-content button.submit {
+    background-color: #007bff; /* Same blue as the Add Revenue button */
+    color: white; /* Text color */
+}
+
+.modal-content button.cancel {
+    background-color: #ff4d4d; /* Red for the cancel button */
+    color: white; /* Text color */
+}
+
+.modal-content button:hover {
+    opacity: 0.9; /* Slightly fade on hover */
+}
+
+.error-message {
+    color: red; /* Red text color for errors */
+    font-size: 14px; /* Font size */
+    margin-top: 10px; /* Space above the error message */
+    margin-bottom: 10px; /* Space below the error message */
+    font-weight: bold; /* Bold text */
+    text-align: left; /* Align text to the left */
+}

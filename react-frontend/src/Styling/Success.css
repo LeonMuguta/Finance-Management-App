@@ -1,0 +1,29 @@
+.successPage {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh; /* Full height of the viewport */
+    background-color: #f7f7f7; /* Optional: Set a background color */
+}
+
+.successPage h1 {
+    font-size: 5rem; /* Adjust size as needed */
+    color: #4CAF50; /* Optional: Change the text color */
+}
+
+.backButton {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    padding: 10px 15px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.backButton:hover {
+    background-color: #0056b3;
+}

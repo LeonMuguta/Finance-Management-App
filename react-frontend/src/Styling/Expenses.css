@@ -1,0 +1,122 @@
+/* Container for Expenses page */
+.expensesContainer {
+    display: flex;
+    height: 110vh;
+}
+
+/* Main content next to the sidebar */
+.expensesContent {
+    flex: 1;
+    padding: 20px;
+    background-image: url('../Images/sky-blue-background.jpg');
+    background-size: cover;
+    height: 110vh; /* Set height to 100% of the viewport height */
+}
+
+.expensesContent h2 {
+    font-size: 28px;
+    margin-bottom: 20px;
+}
+
+.expensesTableContainer {
+    background-color: white;
+    padding: 20px;
+    border-radius: 20px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
+    overflow-x: auto; /* Add horizontal scroll if the table is too wide */
+}
+
+.expensesTable {
+    width: 100%;
+    border-collapse: collapse;
+    text-align: left;
+}
+
+.expensesTable th, .expensesTable td {
+    padding: 12px;
+    border-bottom: 1px solid #ddd;
+}
+
+.expensesTable th {
+    background-color: #f4f4f4;
+    font-weight: bold;
+}
+
+.selectedRow {
+    background-color: #cef3f8; /* Light blue color for highlighting */
+}
+
+.expenseButtons {
+    display: flex;
+    gap: 20px;
+}
+
+.addExpenseButton,
+.removeExpenseButton,
+.editExpenseButton {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 10px;
+    color: white;
+    cursor: pointer;
+}
+
+.addExpenseButton {
+    background-color: #007bff;
+}
+
+.removeExpenseButton {
+    background-color: #dc3545;
+}
+
+.editExpenseButton {
+    background-color: #04760c;
+}
+
+.addExpenseButton i,
+.removeExpenseButton i,
+.editExpenseButton i {
+    margin-right: 8px;
+}
+
+.removeExpenseButton.disabledButton,
+.editExpenseButton.disabledButton {
+    background-color: grey;
+    cursor: not-allowed;
+}
+
+/* Styling for the success message */
+.successMessage {
+    background-color: #4CAF50; /* Green background */
+    color: white; /* White text */
+    padding: 10px 20px; /* Padding around the message */
+    border-radius: 10px; /* Rounded corners */
+    position: fixed; /* Fixed position */
+    top: 20px; /* Distance from the top */
+    right: 20px; /* Distance from the right */
+    z-index: 1000; /* Ensure it's on top */
+    opacity: 1; /* Full opacity when visible */
+    transition: opacity 0.5s ease-out; /* Fade-out transition */
+}
+
+/* Add this class when the message is fading out */
+.successMessage.fadeOut {
+    opacity: 0; /* Set opacity to 0 to fade out */
+}
+
+/* New media query for screen width 650px or below */
+@media (max-width: 650px) {
+    .expensesContainer {
+        flex-direction: column; /* Stack children vertically */
+        height: 100%;
+    }
+
+    .expensesContent {
+        width: 100%; /* Ensure content takes full width */
+    }
+
+    .expenseButtons {
+        margin-bottom: 10px;
+    }
+}

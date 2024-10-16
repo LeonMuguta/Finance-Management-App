@@ -1,0 +1,100 @@
+/* Sidebar styling */
+.sidebar {
+    width: 250px;
+    background-color: #f8f9fa;
+    padding: 20px 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.appName {
+    font-size: 28px;
+    font-weight: bold;
+    margin-bottom: 10px;
+    text-align: center;
+}
+
+.divider {
+    border: 1px solid black;
+    width: 60%;
+    margin: 20px auto;
+}
+
+/* Menu Headings */
+.menu {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.menuItem {
+    margin-bottom: 10px;
+    background-color: transparent !important;
+}
+
+.menuItem:hover {
+    background-color: transparent !important;
+}
+
+.menuItem a {
+    text-decoration: none;
+    color: black;
+    font-weight: 500;
+    font-size: 18px;
+    display: flex;
+    align-items: center;
+    padding: 10px 20px;
+    border-radius: 8px;
+}
+
+.menuItem i {
+    margin-right: 10px; /* Space between icon and text */
+}
+
+.menuItem a:hover {
+    background-color: #e0e0e0;
+    padding: 10px 20px !important;
+    border-radius: 8px !important;
+    color: #007bff;
+}
+
+.menuItem a.active {
+    font-weight: bold; /* Make the active item bolder */
+    background-color: #007bff;
+    color: white;
+}
+
+.menuItem a.active i {
+    color: white;
+}
+
+.menuItem a.active:hover {
+    background-color: #0056b3; /* Darker shade on hover */
+}
+
+/* Log Out Button */
+
+.logoutSection {
+    margin-top: auto; /* Ensures it stays at the bottom */
+    padding: 10px 20px; /* Same padding as the menu items */
+    text-align: left; /* Aligns text to the left for consistency */
+    border-radius: 8px; /* Same border radius as the menu items */
+    display: flex;
+    align-items: center;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.logoutSection a {
+    text-decoration: none; /* Removes the underline */
+    color: red; /* Changes the text color to red */
+    font-size: 18px;
+    display: flex;
+    align-items: center;
+    padding: 10px 20px;
+}
+
+.logoutSection i {
+    margin-right: 10px; /* Adds some space between the icon and the text */
+    font-size: 20px; /* Increases icon size */
+}

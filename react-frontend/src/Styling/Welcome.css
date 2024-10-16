@@ -1,0 +1,109 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,300;0,400;0,500;1,300&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.welcomePage {
+    display: flex;
+    height: 100vh;  /* Full page height */
+}
+
+.welcomeImage {
+    width: 65%;  /* 65% of the page width */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.welcomeImage img {
+    max-width: 100%;
+    height: auto;
+    vertical-align: middle;
+    border-top-right-radius: 20px;  /* Top-right corner rounded */
+    border-bottom-right-radius: 20px;
+}
+
+.welcomeNav {
+    width: 35%;  /* Remaining 35% of the page width */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    padding: 20px;
+    background-image: url('../Images/welcome-nav-image2.jpg');
+    background-size: cover;
+}
+
+.welcomeNav h1 {
+    margin-bottom: 20px;  /* Adds spacing between h1 and p */
+    font-family: 'Roboto', sans-serif;
+}
+
+.welcomeNav p {
+    margin-bottom: 25px;  /* Adds spacing between p and buttons */
+}
+
+.welcomeButtons {
+    display: flex;
+    gap: 10px;  /* Space between the buttons */
+}
+
+/* Button Styles */
+
+.btn {
+    padding: 10px 20px;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.btn-signup {
+    background-color: #007bff;
+    color: white;
+    border: none;
+}
+
+.btn-signup:hover {
+    background-color: #0056b3;
+}
+
+.btn-login {
+    background-color: transparent;
+    color: black;
+    border: 2px solid #007bff;
+}
+
+.btn-login:hover {
+    background-color: rgba(0, 123, 255, 0.1); /* Slight blue tint on hover */
+}
+
+/* Page Responsiveness */
+@media (max-width: 1500px) {
+    .welcomePage {
+        flex-direction: column;
+    }
+
+    .welcomeImage {
+        width: 100%;
+    }
+    
+    .welcomeImage img {
+        border-top-right-radius: 0;
+        border-bottom-right-radius: 20px;
+        border-bottom-left-radius: 20px;
+    }
+
+    .welcomeNav {
+        width: 100%;
+        padding: 30px; /* Optional: increase padding for better spacing */
+        align-items: center; /* Center content in smaller width */
+        text-align: center; /* Center the text for smaller screens */
+    }
+
+    .welcomeButtons {
+        justify-content: center; /* Center the buttons */
+    }
+}

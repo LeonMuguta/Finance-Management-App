@@ -1,0 +1,42 @@
+.topNav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #f8f9fa;
+    padding: 10px 20px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+.appTitle {
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.menuToggle {
+    background: none;
+    border: none;
+    font-size: 24px;
+    cursor: pointer;
+}
+
+.dropdownMenu {
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    top: 50px; /* Adjust based on your layout */
+    right: 20px;
+    background-color: white;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+    border-radius: 5px;
+    z-index: 10;
+}
+
+.menuItem {
+    padding: 10px 20px;
+    text-decoration: none;
+    color: black;
+}
+
+.menuItem:hover {
+    background-color: #e0e0e0;
+}

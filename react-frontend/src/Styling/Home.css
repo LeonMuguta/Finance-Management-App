@@ -1,0 +1,211 @@
+/* General container layout */
+.homeContainer {
+    display: flex;
+    height: 130vh;
+}
+
+/* Right-side content styling */
+.content {
+    flex: 1;
+    padding: 30px;
+    background-image: url('../Images/sky-blue-background.jpg');
+    background-size: cover;
+    height: 130vh; /* Set height to 100% of the viewport height */
+    display: flex; /* Enable flexbox for the content area */
+    flex-direction: column; /* Stack children vertically */
+}
+
+h2 {
+    font-size: 28px;
+    margin-bottom: 30px;
+}
+
+.summarySection {
+    margin-top: 20px;
+}
+
+.dashboard {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+}
+
+.summary {
+    background-color: #fff;
+    border-radius: 20px;
+    padding: 20px;
+    width: 30%;
+    text-align: center;
+}
+
+.summary h4 {
+    margin: 0; /* Removes default margin */
+    display: flex;
+    align-items: center; /* Center align the items vertically */
+    justify-content: center; /* Center align the items horizontally */
+}
+
+.summary h4 i {
+    margin-right: 8px; /* Adds space between the icon and heading */
+    font-size: 20px; /* Adjust icon size */
+}
+
+.summary p {
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.summary p.totalRevenue {
+    color: rgb(33, 184, 33);
+}
+
+.summary p.totalExpense {
+    color: #c52323;
+}
+
+/* Styling for positive net balance (same as totalRevenue) */
+.positiveBalance {
+    color: rgb(33, 184, 33);
+}
+
+/* Styling for negative net balance (same as totalExpense) */
+.negativeBalance {
+    color: #c52323;
+}
+
+/* Styling for zero net balance */
+.zeroBalance {
+    color: black;
+}
+
+/* Transactions and Monthly Statistic Styles */
+.transactionsStatsSection {
+    display: flex;
+    margin-top: 30px;
+    flex: 1;
+}
+
+/* .transactions {
+    background-color: #fff;
+    border-radius: 20px;
+    padding: 20px;
+    width: 25%;
+    margin-right: 75px;
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+} */
+
+.transactions {
+    max-height: 600px;
+    background-color: #fff;
+    overflow-y: auto;
+    width: 25%;
+    margin-right: 75px;
+    padding: 20px;
+    border-radius: 20px;
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.monthlyStatistics {
+    background-color: #fff;
+    border-radius: 20px;
+    padding: 20px;
+    width: 60%;
+    max-height: 600px;
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Styling for Transactions section */
+.transactionTable {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 1em;
+}
+
+.transactionTable th, .transactionTable td {
+    border-bottom: 1px solid #ddd;
+    padding: 8px;
+}
+
+.transactionTable th {
+    background-color: #f2f2f2;
+    text-align: left;
+}
+
+.transactionTable td {
+    text-align: left;
+}
+
+.transactionTable .positiveAmount {
+    color: green;
+}
+
+.transactionTable .negativeAmount {
+    color: red;
+}
+
+/* Pie Chart styling */
+.pieChartContainer {
+    width: 100%;
+    height: 300px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Page Responsiveness */
+
+@media (max-width: 1350px) {
+    .homeContainer {
+        height: auto;
+    }
+
+    .content {
+        height: auto;
+    }
+
+    .transactionsStatsSection {
+        flex-direction: column; /* Stack children vertically */
+    }
+
+    .transactions {
+        width: 100%; /* Take full width */
+        margin-right: 0; /* Remove margin */
+        margin-bottom: 20px; /* Add space between the two sections */
+    }
+
+    .monthlyStatistics {
+        width: 100%; /* Take full width */
+    }
+}
+
+@media (max-width: 1000px) {
+    .dashboard {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .summary {
+        width: 100%;
+        margin-bottom: 20px;
+        text-align: center;
+    }
+}
+
+/* New media query for screen width 650px or below */
+@media (max-width: 651px) {
+    .homeContainer {
+        flex-direction: column; /* Stack children vertically */
+    }
+
+    .content {
+        width: 100%; /* Ensure content takes full width */
+    }
+}

@@ -1,0 +1,74 @@
+.loginPage {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-image: url('../Images/verification.jpg');
+    background-size: cover;
+}
+
+.loginForm {
+    display: flex;
+    flex-direction: column;
+    background-color: white;
+    padding: 30px;
+    border-radius: 15px;
+    box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.1);
+    width: 400px;
+}
+
+.loginForm h2 {
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.loginForm label {
+    margin-bottom: 5px;
+}
+
+.loginForm input {
+    margin-bottom: 15px;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    width: 100%;
+}
+
+.loginBtn {
+    padding: 10px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.loginBtn:hover {
+    background-color: #0056b3;
+}
+
+.backButton {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    padding: 10px 15px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.backButton:hover {
+    background-color: #0056b3;
+}
+
+.error {
+    color: red; /* Red text color for errors */
+    font-size: 14px; /* Font size */
+    margin-top: 10px; /* Space above the error message */
+    margin-bottom: 10px; /* Space below the error message */
+    font-weight: bold; /* Bold text */
+    text-align: left; /* Align text to the left */
+}
