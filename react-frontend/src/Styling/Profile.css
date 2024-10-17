@@ -48,6 +48,16 @@ button.edit:hover {
     background-color: #0056b3;
 }
 
+button.changePassword {
+    background-color: #cf4040;
+    color: white;
+    margin-top: 10px;
+}
+
+button.changePassword:hover {
+    background-color: #e22828;
+}
+
 button.save {
     background-color: #28a745;
     color: white;
@@ -135,4 +145,60 @@ button.cancel:hover {
 
 .successMessage.fadeOut {
     opacity: 0;
+}
+
+/* Styling for the change password form */
+.changePasswordForm {
+    background-color: #fff;
+    border-radius: 10px;
+    padding: 20px;
+    max-width: 400px;
+    margin: 0 auto;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Labels for each input field */
+.changePasswordForm label {
+    display: block;
+    margin-bottom: 10px;
+    font-weight: 500;
+}
+
+.changePasswordForm input {
+    width: 100%;
+    padding: 10px;
+    margin-top: 5px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 14px;
+}
+
+/* Styling for buttons inside the change password form */
+.changePasswordForm button {
+    padding: 10px 15px;
+    margin-right: 10px;
+    border: none;
+    border-radius: 4px;
+    font-size: 14px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.changePasswordForm .confirm {
+    background-color: #4CAF50;
+    color: white;
+}
+
+.changePasswordForm .confirm:hover {
+    background-color: #45a049;
+}
+
+.changePasswordForm .cancel {
+    background-color: #f44336;
+    color: white;
+}
+
+.changePasswordForm .cancel:hover {
+    background-color: #e53935;
 }

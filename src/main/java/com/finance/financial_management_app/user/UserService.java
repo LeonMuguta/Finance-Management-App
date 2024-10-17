@@ -79,10 +79,8 @@ public class UserService {
             }
 
             if (userDetails.getPassword() != null && !userDetails.getPassword().isEmpty()) {
-                user.setPassword(passwordEncoder.encode(userDetails.getPassword()));
+                user.setPassword(passwordEncoder.encode(userDetails.getPassword())); // Password should be encoded
             }
-
-            // user.setPassword(passwordEncoder.encode(userDetails.getPassword())); // Password should be encoded
             
             userRepository.save(user);
             
@@ -110,6 +108,26 @@ public class UserService {
         }
 
         return Optional.empty();  // Return empty if authentication fails
+    }
+
+    // Method for changing a user's password
+    public void changePassword(Integer id, String currentPassword, String newPassword) {
+        Optional<User> userOptional = userRepository.findById(id);
+    
+        if (userOptional.isPresent()) {
+            User user = userOptional.get();
+    
+            // Verify if the current password matches
+            if (!passwordEncoder.matches(currentPassword, user.getPassword())) {
+                throw new IllegalArgumentException("Current password is incorrect.");
+            }
+    
+            // Update with the new password (encode it)
+            user.setPassword(passwordEncoder.encode(newPassword));
+            userRepository.save(user);
+        } else {
+            throw new IllegalArgumentException("User not found.");
+        }
     }
 
 }

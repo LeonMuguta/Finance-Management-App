@@ -10,6 +10,9 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 @Entity
 @Table(name = "Users")
 public class User {
+    public interface Create {}  // Validation group for creation
+    public interface Update {}  // Validation group for update
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
@@ -36,8 +39,8 @@ public class User {
     @Column(nullable = false, unique = true)
     private String email;
 
-    @NotBlank(message = "Password cannot be empty")
-    @Size(min = 5, message = "Password must be at least 5 characters long")
+    @NotBlank(message = "Password cannot be empty", groups = Create.class)
+    @Size(min = 5, message = "Password must be at least 5 characters long", groups = Create.class)
     @Column(nullable = false)
     private String password;
 
@@ -59,8 +62,9 @@ public class User {
         this.email = email;
         this.password = password;
 
-        if (password == null || password.isEmpty()) {
-            throw new IllegalArgumentException("Password cannot be empty!");
+        // Only enforce password requirement if it's a new user creation (password is required)
+        if (password != null && !password.isEmpty()) {
+            this.password = password;
         }
         if (dateOfBirth != null && dateOfBirth.isAfter(LocalDate.now())) {
             throw new IllegalArgumentException("Date of birth cannot be in the future!");

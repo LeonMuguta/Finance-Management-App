@@ -3,8 +3,10 @@ package com.finance.financial_management_app.user;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 @RestController
@@ -53,7 +55,7 @@ public class UserController {
     
     // Create new users
     @PostMapping("")
-    public ResponseEntity<String> registerUser(@RequestBody User user) {
+    public ResponseEntity<String> registerUser(@Validated(User.Create.class) @RequestBody User user) {
         try {
             userService.registerUser(user);
             return ResponseEntity.ok("User Registered Successfully");
@@ -62,9 +64,23 @@ public class UserController {
         }
     }
 
+    // Changing a users password
+    @PostMapping("/{id}/change-password")
+    public ResponseEntity<?> changePassword(@PathVariable Integer id, @Validated(User.Update.class) @RequestBody Map<String, String> passwordData) {
+        try {
+            String currentPassword = passwordData.get("currentPassword");
+            String newPassword = passwordData.get("newPassword");
+
+            userService.changePassword(id, currentPassword, newPassword);
+            return ResponseEntity.ok("Password updated successfully.");
+        } catch (IllegalArgumentException e) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
+        }
+    }
+
     // Update user details
     @PutMapping("/{id}")
-    public ResponseEntity<String> updateUser(@PathVariable Integer id, @RequestBody User userDetails) {
+    public ResponseEntity<String> updateUser(@PathVariable Integer id, @Validated(User.Update.class) @RequestBody User userDetails) {
         try {
             userService.updateUser(id, userDetails);
             return ResponseEntity.ok("User Info Successfully Updated");
