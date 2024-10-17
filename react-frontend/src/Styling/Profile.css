@@ -49,12 +49,22 @@ button.edit:hover {
 }
 
 button.changePassword {
-    background-color: #cf4040;
+    background-color: #007bff;
     color: white;
     margin-top: 10px;
 }
 
 button.changePassword:hover {
+    background-color: #0056b3;
+}
+
+button.deleteAccount {
+    background-color: #cf4040;
+    color: white;
+    margin-top: 10px;
+}
+
+button.deleteAccount:hover {
     background-color: #e22828;
 }
 

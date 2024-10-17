@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 import Sidebar from './Sidebar';
 import TopNav from './TopNav';
 import '../Styling/Profile.css';
@@ -28,6 +29,7 @@ function Profile() {
     const [passwordSuccessMessage, setPasswordSuccessMessage] = useState('');
     // State for window repsonsiveness
     const [windowWidth, setWindowWidth] = useState(window.innerWidth);
+    const navigate = useNavigate();
 
     useEffect(() => {
         const userId = localStorage.getItem('id');
@@ -124,6 +126,28 @@ function Profile() {
         }
     };
 
+    // Method to handle account deletion
+    const handleDeleteAccount = async () => {
+        const userId = localStorage.getItem('id');
+
+        // Confirm the user wants to delete their account
+        if (window.confirm('Are you sure you want to delete your account? This action cannot be undone.')) {
+            try {
+                await axios.delete(`http://localhost:8080/users/${userId}`);
+                
+                // Clear user data and localStorage
+                localStorage.removeItem('id');
+                localStorage.removeItem('token'); // If you're storing a token in localStorage
+                
+                // Redirect to login or welcome page
+                navigate('/');
+            } catch (error) {
+                console.error('Error deleting user account: ', error);
+                alert("An error occurred while deleting your account.");
+            }
+        }
+    };
+
     return (
         <div className="profileContainer">
             {/* Conditional rendering of Sidebar or TopNav based on window width */}
@@ -144,6 +168,7 @@ function Profile() {
                                     <p><strong>Date of Birth:</strong> {new Date(user.dateOfBirth).toLocaleDateString()}</p>
                                     <button className="edit" onClick={() => setEditMode(true)}>Edit</button>
                                     <button className="changePassword" onClick={() => setShowChangePasswordForm(true)}>Change Password</button>
+                                    <button className="deleteAccount" onClick={handleDeleteAccount}>Delete Account</button>
                                 </div>
                             ) : editMode ? (
                                 <div className="profileEditForm">

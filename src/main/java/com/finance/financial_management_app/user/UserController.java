@@ -1,6 +1,12 @@
 package com.finance.financial_management_app.user;
 
 import org.springframework.web.bind.annotation.*;
+
+import com.finance.financial_management_app.expense.Expense;
+import com.finance.financial_management_app.expense.ExpenseRepository;
+import com.finance.financial_management_app.revenue.Revenue;
+import com.finance.financial_management_app.revenue.RevenueRepository;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
@@ -15,10 +21,14 @@ public class UserController {
     
     private final UserService userService;
     private final UserRepository userRepository;
+    private final RevenueRepository revenueRepository;
+    private final ExpenseRepository expenseRepository;
 
-    public UserController(UserService userService, UserRepository userRepository) {
+    public UserController(UserService userService, UserRepository userRepository, RevenueRepository revenueRepository, ExpenseRepository expenseRepository) {
         this.userService = userService;
         this.userRepository = userRepository;
+        this.revenueRepository = revenueRepository;
+        this.expenseRepository = expenseRepository;
     }
 
     // Get all users
@@ -96,8 +106,22 @@ public class UserController {
         Optional<User> user = userRepository.findById(id);
 
         if (user.isPresent()) {
+            User existingUser = user.get();
+
+            // Delete the revenue transactions linked to that specific user
+            List<Revenue> revenues = revenueRepository.findByUser(existingUser);
+            for (Revenue revenue : revenues) {
+                revenueRepository.delete(revenue);
+            }
+
+            // Delete the expense transactions linked to that specific user
+            List<Expense> expenses = expenseRepository.findByUser(existingUser);
+            for (Expense expense : expenses) {
+                expenseRepository.delete(expense);
+            }
+
             // Delete the user
-            userRepository.delete(user.get());
+            userRepository.delete(existingUser);
             
             // Return success response
             return ResponseEntity.ok("User Successfully Deleted");
