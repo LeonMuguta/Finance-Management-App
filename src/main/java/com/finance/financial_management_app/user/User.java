@@ -40,7 +40,6 @@ public class User {
     private String email;
 
     @NotBlank(message = "Password cannot be empty", groups = Create.class)
-    @Size(min = 5, message = "Password must be at least 5 characters long", groups = Create.class)
     @Column(nullable = false)
     private String password;
 

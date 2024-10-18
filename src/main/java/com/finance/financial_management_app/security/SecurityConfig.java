@@ -25,10 +25,10 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
-                .csrf(csrf -> csrf.disable()) // Disable CSRF for development
-                .authorizeRequests(requests -> requests
-                                .anyRequest().permitAll() // Allow access to all paths without authentication
-                );
+            .csrf(csrf -> csrf.disable()) // Disable CSRF for development
+            .authorizeRequests(requests -> requests
+                            .anyRequest().permitAll() // Allow access to all paths without authentication
+            );
         return http.build();
     }
 

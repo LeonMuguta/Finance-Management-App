@@ -37,6 +37,11 @@ public class UserService {
             throw new IllegalArgumentException("User must be at least 18 years old to register");
         }
 
+        // Check if password is at least 5 characters long
+        if (user.getPassword().length() < 5) {
+            throw new IllegalArgumentException("Password must be at least 5 characters long");
+        }
+
         // proceed to register if the validation passes
         User newUser = new User(
             user.getFirstName(),

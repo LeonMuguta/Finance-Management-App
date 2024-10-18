@@ -48,7 +48,7 @@ function Revenues() {
                 ...newRevenue,
                 user: { id: userId } // Include user ID in the request
             });
-            console.log(response.data); // Log the response (optional)
+            console.log(response.data);
             setRevenues((prevRevenues) => [...prevRevenues, newRevenue]); // Update the state
         } catch (error) {
             if (error.response) {
@@ -154,7 +154,6 @@ function Revenues() {
                                 <th>Category</th>
                                 <th>Description</th>
                                 <th>Date</th>
-                                {/* <th>User</th> */}
                             </tr>
                         </thead>
                         <tbody>
@@ -172,7 +171,6 @@ function Revenues() {
                                         <td>{revenue.category}</td>
                                         <td>{revenue.description}</td>
                                         <td>{new Date(revenue.date).toLocaleDateString()}</td>
-                                        {/* <td>{revenue.user.firstName} {revenue.user.surname}</td> */}
                                     </tr>
                                 ))
                             ) : (
@@ -206,7 +204,7 @@ function Revenues() {
                     <button 
                         className={`editRevenueButton ${selectedRevenues.length !== 1 ? 'disabledButton' : ''}`} 
                         disabled={selectedRevenues.length !== 1} // Disable if no revenue is selected
-                        onClick={handleEditClick}
+                        onClick={handleEditClick} // Display the edit form once button is clicked
                     >
                         <i className="fa fa-pencil"></i> Edit
                     </button>
