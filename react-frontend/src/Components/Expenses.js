@@ -90,6 +90,12 @@ function Expenses() {
         });
     };
 
+    // Open the modal to add new expense (ensure fields are reset)
+    const handleAddClick = () => {
+        setEditingExpense(null); // Reset editingExpense to ensure the form is empty
+        setIsModalOpen(true); // Open the modal
+    };
+
     // Open the modal to edit the selected expense
     const handleEditClick = () => {
         const expenseToEdit = expenses.find(expense => expense.id === selectedExpenses[0]);
@@ -126,6 +132,13 @@ function Expenses() {
         }
     };
 
+    // Modify the onClose function to unselect the selected expense
+    const handleCloseModal = () => {
+        setIsModalOpen(false);
+        setEditingExpense(null);
+        setSelectedExpenses([]); // Unselect any selected expenses
+    };
+
     React.useEffect(() => {
         const handleResize = () => {
             setWindowWidth(window.innerWidth);
@@ -153,8 +166,8 @@ function Expenses() {
                                 <th>Amount</th>
                                 <th>Category</th>
                                 <th>Description</th>
+                                <th>Recurring</th>
                                 <th>Date</th>
-                                {/* <th>User</th> */}
                             </tr>
                         </thead>
                         <tbody>
@@ -171,8 +184,8 @@ function Expenses() {
                                         <td>R{expense.amount}</td>
                                         <td>{expense.category}</td>
                                         <td>{expense.description}</td>
+                                        <td>{expense.isRecurring ? 'Yes' : 'No'}</td>
                                         <td>{new Date(expense.date).toLocaleDateString()}</td>
-                                        {/* <td>{expense.user.firstName} {expense.user.surname}</td> */}
                                     </tr>
                                 ))
                             ) : (
@@ -193,7 +206,7 @@ function Expenses() {
 
                 {/* Buttons Section */}
                 <div className="expenseButtons">
-                    <button className="addExpenseButton" onClick={() => setIsModalOpen(true)}>
+                    <button className="addExpenseButton" onClick={handleAddClick}>
                         <i className="fa fa-plus"></i> Add
                     </button>
                     <button 
@@ -215,7 +228,7 @@ function Expenses() {
                 {/* Add Expense Modal */}
                 <AddExpenseModal 
                     isOpen={isModalOpen} 
-                    onClose={() => setIsModalOpen(false)} 
+                    onClose={handleCloseModal} 
                     onAddExpense={editingExpense ? handleEditExpense : handleAddExpense}
                     editingExpense={editingExpense} // Pass selected expense for editing
                 />

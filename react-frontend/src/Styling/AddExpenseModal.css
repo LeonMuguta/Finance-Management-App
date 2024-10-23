@@ -61,6 +61,23 @@
     opacity: 0.9; /* Slightly fade on hover */
 }
 
+.recurring-label {
+    display: flex !important;
+    align-items: baseline;  /* Aligns checkbox and text vertically */
+    /* gap: 5px;             Adds space between checkbox and text */
+    margin-bottom: 10px;  /* Ensures consistent spacing with other labels */
+}
+
+.recurring-label input {
+    margin: 0;
+    width: 10% !important;
+}
+
+.recurring-label span {
+    display: inline-block;
+    width:100%;
+}
+
 .error-message {
     color: red; /* Red text color for errors */
     font-size: 14px; /* Font size */

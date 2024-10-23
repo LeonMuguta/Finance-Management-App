@@ -6,6 +6,7 @@ const AddRevenueModal = ({ isOpen, onClose, onAddRevenue, editingRevenue  }) => 
     const [category, setCategory] = useState('');
     const [description, setDescription] = useState('');
     const [date, setDate] = useState('');
+    const [isRecurring, setIsRecurring] = useState(false);
     const [userId, setUserId] = useState(null);
     const [errorMessage, setErrorMessage] = useState('');
 
@@ -21,7 +22,15 @@ const AddRevenueModal = ({ isOpen, onClose, onAddRevenue, editingRevenue  }) => 
             setAmount(editingRevenue.amount);
             setCategory(editingRevenue.category);
             setDescription(editingRevenue.description);
+            setIsRecurring(editingRevenue.isRecurring);
             setDate(editingRevenue.date);
+        } else {
+            // Reset form fields when adding a new revenue
+            setAmount('');
+            setCategory('');
+            setDescription('');
+            setIsRecurring(false);
+            setDate('');
         }
     }, [editingRevenue]);
 
@@ -40,6 +49,7 @@ const AddRevenueModal = ({ isOpen, onClose, onAddRevenue, editingRevenue  }) => 
             category,
             description,
             date,
+            isRecurring,
             user: {
                 id: userId,  // Pass user ID as part of the revenue object
             },
@@ -53,6 +63,7 @@ const AddRevenueModal = ({ isOpen, onClose, onAddRevenue, editingRevenue  }) => 
             setCategory('');
             setDescription('');
             setDate('');
+            setIsRecurring(false);
 
             onClose(); // Close the modal after submission
 
@@ -111,6 +122,14 @@ const AddRevenueModal = ({ isOpen, onClose, onAddRevenue, editingRevenue  }) => 
                             onChange={(e) => setDate(e.target.value)} 
                             required 
                         />
+                    </label>
+                    <label className="recurring-label">
+                        <input 
+                            type="checkbox" 
+                            checked={isRecurring} 
+                            onChange={(e) => setIsRecurring(e.target.checked)} 
+                        />
+                        <span>Recurring</span>
                     </label>
 
                     {/* Display error messages */}

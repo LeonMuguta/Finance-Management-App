@@ -79,6 +79,7 @@ public class ExpenseController {
             expense.setCategory((String) expenseData.get("category"));
             expense.setDescription((String) expenseData.get("description"));
             expense.setDate(transactionDate);
+            expense.setIsRecurring((boolean) expenseData.get("isRecurring"));
             expense.setUser(user);
             
             expenseRepository.save(expense);

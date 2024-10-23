@@ -31,6 +31,9 @@ public class Expense {
     @Column(name = "date", nullable = false)
     private LocalDate date;
 
+    @Column(name = "is_recurring", nullable = false)
+    private boolean isRecurring;
+
     // Many-to-One relationship with User
     @ManyToOne
     @JoinColumn(name = "user_id", nullable = false)
@@ -45,12 +48,14 @@ public class Expense {
         @JsonProperty("category") String category,
         @JsonProperty("description") String description,
         @JsonProperty("date") LocalDate date,
+        @JsonProperty("isRecurring") boolean isRecurring,
         @JsonProperty("user") User user
     ) {
         this.amount = amount;
         this.category = category;
         this.description = description;
         this.date = date;
+        this.isRecurring = isRecurring;
         this.user = user;
 
         if (amount == null) {
@@ -82,6 +87,10 @@ public class Expense {
         return date;
     }
 
+    public boolean getIsRecurring() {
+        return isRecurring;
+    }
+
     public User getUser() {
         return user;
     }
@@ -105,6 +114,10 @@ public class Expense {
 
     public void setDate(LocalDate date) {
         this.date = date;
+    }
+
+    public void setIsRecurring(boolean isRecurring) {
+        this.isRecurring = isRecurring;
     }
 
     public void setUser(User user) {

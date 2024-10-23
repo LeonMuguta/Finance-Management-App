@@ -67,7 +67,7 @@ public class ExpenseControllerTest {
         mockUser.setId(1);  // Set the user ID to 1
         
         BigDecimal amount = new BigDecimal(7000);
-        Expense newExpense = new Expense(amount, "Rent", "Rent payment for my apartment", LocalDate.of(2024, 5, 18), mockUser);
+        Expense newExpense = new Expense(amount, "Rent", "Rent payment for my apartment", LocalDate.of(2024, 5, 18), false, mockUser);
 
         // Mock user repository behavior
         when(userRepository.findById(1)).thenReturn(Optional.of(mockUser)); // Mock user retrieval
@@ -101,7 +101,7 @@ public class ExpenseControllerTest {
         mockUser.setId(1);  // Set the user ID to 1
 
         BigDecimal amount = new BigDecimal(7000);
-        Expense newExpense = new Expense(amount, "Rent", "Rent payment for my apartment", LocalDate.of(2024, 5, 18), mockUser);
+        Expense newExpense = new Expense(amount, "Rent", "Rent payment for my apartment", LocalDate.of(2024, 5, 18), false, mockUser);
 
         // Mock user repository behavior
         when(userRepository.findById(1)).thenReturn(Optional.of(mockUser)); // Mock user retrieval
@@ -135,7 +135,7 @@ public class ExpenseControllerTest {
         mockUser.setId(1);  // Set the user ID to 1
 
         BigDecimal amount = new BigDecimal(-7000);
-        Expense newExpense = new Expense(amount, "Rent", "Rent payment for my apartment", LocalDate.of(2024, 5, 18), mockUser);
+        Expense newExpense = new Expense(amount, "Rent", "Rent payment for my apartment", LocalDate.of(2024, 5, 18), false, mockUser);
 
         // Mock user repository behavior
         when(userRepository.findById(1)).thenReturn(Optional.of(mockUser)); // Mock user retrieval
@@ -170,7 +170,7 @@ public class ExpenseControllerTest {
         mockUser.setId(1);  // Set the user ID to 1
 
         BigDecimal amount = new BigDecimal(-7000);
-        Expense existingExpense = new Expense(amount, "Rent", "Rent payment for my apartment", LocalDate.of(2024, 5, 18), mockUser);
+        Expense existingExpense = new Expense(amount, "Rent", "Rent payment for my apartment", LocalDate.of(2024, 5, 18), false, mockUser);
 
         // Mock user repository behavior
         when(userRepository.findById(1)).thenReturn(Optional.of(mockUser)); // Mock user retrieval
@@ -275,7 +275,7 @@ public class ExpenseControllerTest {
         mockUser.setId(1);  // Set the user ID to 1
 
         BigDecimal amount = new BigDecimal(7000);
-        Expense existingExpense = new Expense(amount, "Rent", "Rent payment for my apartment", LocalDate.of(2024, 5, 18), mockUser);
+        Expense existingExpense = new Expense(amount, "Rent", "Rent payment for my apartment", LocalDate.of(2024, 5, 18), false, mockUser);
         
         // Mock expense repository behavior
         when(expenseRepository.findById(1)).thenReturn(Optional.of(existingExpense));
@@ -300,7 +300,7 @@ public class ExpenseControllerTest {
         mockUser.setId(1);  // Set the user ID to 1
 
         BigDecimal amount = new BigDecimal(7000);
-        Expense existingExpense = new Expense(amount, "Rent", "Rent payment for my apartment", LocalDate.of(2024, 5, 18), mockUser);
+        Expense existingExpense = new Expense(amount, "Rent", "Rent payment for my apartment", LocalDate.of(2024, 5, 18), false, mockUser);
         
         // Mock expense repository behavior
         when(expenseRepository.findById(1)).thenReturn(Optional.of(existingExpense));

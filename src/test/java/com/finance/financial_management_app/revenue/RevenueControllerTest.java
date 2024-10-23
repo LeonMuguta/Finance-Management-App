@@ -67,7 +67,7 @@ public class RevenueControllerTest {
         mockUser.setId(1);  // Set the user ID to 1
         
         BigDecimal amount = new BigDecimal(15000);
-        Revenue newRevenue = new Revenue(amount, "Dividends", "Dividend payment from my investments", LocalDate.of(2024, 5, 18), mockUser);
+        Revenue newRevenue = new Revenue(amount, "Dividends", "Dividend payment from my investments", LocalDate.of(2024, 5, 18), false, mockUser);
 
         // Mock user repository behavior
         when(userRepository.findById(1)).thenReturn(Optional.of(mockUser)); // Mock user retrieval
@@ -101,7 +101,7 @@ public class RevenueControllerTest {
         mockUser.setId(1);  // Set the user ID to 1
         
         BigDecimal amount = new BigDecimal(15000);
-        Revenue newRevenue = new Revenue(amount, "Dividends", "Dividend payment from my investments", LocalDate.of(2024, 5, 18), mockUser);
+        Revenue newRevenue = new Revenue(amount, "Dividends", "Dividend payment from my investments", LocalDate.of(2024, 5, 18), false, mockUser);
 
         // Mock user repository behavior
         when(userRepository.findById(1)).thenReturn(Optional.of(mockUser)); // Mock user retrieval
@@ -135,7 +135,7 @@ public class RevenueControllerTest {
         mockUser.setId(1);  // Set the user ID to 1
         
         BigDecimal amount = new BigDecimal(-15000);
-        Revenue newRevenue = new Revenue(amount, "Dividends", "Dividend payment from my investments", LocalDate.of(2024, 5, 18), mockUser);
+        Revenue newRevenue = new Revenue(amount, "Dividends", "Dividend payment from my investments", LocalDate.of(2024, 5, 18), false, mockUser);
 
         // Mock user repository behavior
         when(userRepository.findById(1)).thenReturn(Optional.of(mockUser)); // Mock user retrieval
@@ -170,7 +170,7 @@ public class RevenueControllerTest {
         mockUser.setId(1);  // Set the user ID to 1
         
         BigDecimal amount = new BigDecimal(15000);
-        Revenue existingRevenue = new Revenue(amount, "Dividends", "Dividend payment from my investments", LocalDate.of(2024, 5, 18), mockUser);
+        Revenue existingRevenue = new Revenue(amount, "Dividends", "Dividend payment from my investments", LocalDate.of(2024, 5, 18), false, mockUser);
 
         // Mock user repository behavior
         when(userRepository.findById(1)).thenReturn(Optional.of(mockUser)); // Mock user retrieval
@@ -275,7 +275,7 @@ public class RevenueControllerTest {
         mockUser.setId(1);  // Set the user ID to 1
         
         BigDecimal amount = new BigDecimal(-15000);
-        Revenue existingRevenue = new Revenue(amount, "Dividends", "Dividend payment from my investments", LocalDate.of(2024, 5, 18), mockUser);
+        Revenue existingRevenue = new Revenue(amount, "Dividends", "Dividend payment from my investments", LocalDate.of(2024, 5, 18), false, mockUser);
 
         // Mock revenue repository behavior
         when(revenueRepository.findById(1)).thenReturn(Optional.of(existingRevenue));
@@ -300,7 +300,7 @@ public class RevenueControllerTest {
         mockUser.setId(1);  // Set the user ID to 1
         
         BigDecimal amount = new BigDecimal(-15000);
-        Revenue existingRevenue = new Revenue(amount, "Dividends", "Dividend payment from my investments", LocalDate.of(2024, 5, 18), mockUser);
+        Revenue existingRevenue = new Revenue(amount, "Dividends", "Dividend payment from my investments", LocalDate.of(2024, 5, 18), false, mockUser);
 
         // Mock revenue repository behavior
         when(revenueRepository.findById(1)).thenReturn(Optional.of(existingRevenue));

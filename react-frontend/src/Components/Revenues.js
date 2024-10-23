@@ -90,6 +90,12 @@ function Revenues() {
         });
     };
 
+    // Open the modal to add new revenue (ensure fields are reset)
+    const handleAddClick = () => {
+        setEditingRevenue(null); // Reset editingRevenue to ensure the form is empty
+        setIsModalOpen(true); // Open the modal
+    };
+
     // Open the modal to edit the selected revenue
     const handleEditClick = () => {
         const revenueToEdit = revenues.find(revenue => revenue.id === selectedRevenues[0]);
@@ -126,6 +132,13 @@ function Revenues() {
         }
     };
 
+    // Modify the onClose function to unselect the selected revenue
+    const handleCloseModal = () => {
+        setIsModalOpen(false);
+        setEditingRevenue(null);
+        setSelectedRevenues([]); // Unselect any selected revenues
+    };
+
     React.useEffect(() => {
         const handleResize = () => {
             setWindowWidth(window.innerWidth);
@@ -153,6 +166,7 @@ function Revenues() {
                                 <th>Amount</th>
                                 <th>Category</th>
                                 <th>Description</th>
+                                <th>Recurring</th>
                                 <th>Date</th>
                             </tr>
                         </thead>
@@ -170,6 +184,7 @@ function Revenues() {
                                         <td>R{revenue.amount}</td>
                                         <td>{revenue.category}</td>
                                         <td>{revenue.description}</td>
+                                        <td>{revenue.isRecurring ? 'Yes' : 'No'}</td>
                                         <td>{new Date(revenue.date).toLocaleDateString()}</td>
                                     </tr>
                                 ))
@@ -191,7 +206,7 @@ function Revenues() {
 
                 {/* Buttons Section */}
                 <div className="revenueButtons">
-                    <button className="addRevenueButton" onClick={() => setIsModalOpen(true)}>
+                    <button className="addRevenueButton" onClick={handleAddClick}>
                         <i className="fa fa-plus"></i> Add
                     </button>
                     <button 
@@ -213,7 +228,7 @@ function Revenues() {
                 {/* Add Revenue Modal */}
                 <AddRevenueModal 
                     isOpen={isModalOpen} 
-                    onClose={() => setIsModalOpen(false)} 
+                    onClose={handleCloseModal} 
                     onAddRevenue={editingRevenue ? handleEditRevenue : handleAddRevenue}
                     editingRevenue={editingRevenue} // Pass selected revenue for editing
                 />

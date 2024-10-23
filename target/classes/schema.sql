@@ -17,6 +17,7 @@ CREATE TABLE IF NOT EXISTS Revenue (
     category varchar(255),
     description TEXT,
     date DATE NOT NULL,
+    is_recurring BOOLEAN NOT NULL DEFAULT FALSE,
     user_id INT NOT NULL,
     FOREIGN KEY (user_id) REFERENCES Users(id)
 );
@@ -28,6 +29,7 @@ CREATE TABLE IF NOT EXISTS Expense (
     category varchar(255),
     description TEXT,
     date DATE NOT NULL,
+    is_recurring BOOLEAN NOT NULL DEFAULT FALSE,
     user_id INT NOT NULL,
     FOREIGN KEY (user_id) REFERENCES Users(id)
 );

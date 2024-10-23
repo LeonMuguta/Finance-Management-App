@@ -79,6 +79,7 @@ public class RevenueController {
             revenue.setCategory((String) revenueData.get("category"));
             revenue.setDescription((String) revenueData.get("description"));
             revenue.setDate(transactionDate);
+            revenue.setIsRecurring((boolean) revenueData.get("isRecurring"));
             revenue.setUser(user);
 
             revenueRepository.save(revenue);
