@@ -9,6 +9,7 @@ import java.time.LocalDate;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
+import com.finance.financial_management_app.security.EmailService;
 import com.finance.financial_management_app.user.User;
 import com.finance.financial_management_app.user.UserRepository;
 
@@ -16,10 +17,12 @@ import com.finance.financial_management_app.user.UserRepository;
 public class RevenueService {
     private final RevenueRepository revenueRepository;
     private final UserRepository userRepository;
+    private final EmailService emailService;
 
-    public RevenueService(RevenueRepository revenueRepository, UserRepository userRepository) {
+    public RevenueService(RevenueRepository revenueRepository, UserRepository userRepository, EmailService emailService) {
         this.revenueRepository = revenueRepository;
         this.userRepository = userRepository;
+        this.emailService = emailService;
     }
 
     // Updating revenue transaction details
@@ -64,8 +67,8 @@ public class RevenueService {
         }
     }
 
-    // Run this cron every day at midnight
-    @Scheduled(cron = "0 0 0 * * *")
+    // Run this cron every day at 8am
+    @Scheduled(cron = "0 0 8 * * *")
     public void addRecuringRevenues() {
         LocalDate today = LocalDate.now();
         int currentMonth = today.getMonthValue();
@@ -106,6 +109,13 @@ public class RevenueService {
                         // Save the recurring revenue transaction
                         revenueRepository.save(newRevenue);
                         System.out.println("Recurring entry made");
+
+                        // Send email to notify user of recurring entry made
+                        String emailBody = "Dear " + recurringRevenue.getUser().getFirstName() + " " + recurringRevenue.getUser().getSurname() + ",<br><br>" + 
+                                            "A new recurring transaction of R" + recurringRevenue.getAmount() + " with the category '" + recurringRevenue.getCategory() + "' was created for " + newTransactionDate + ". <br><br>" + 
+                                            "<strong>Kind Regards</strong><br><strong>PerFinancial</strong>";
+                        emailService.sendEmail(recurringRevenue.getUser().getEmail(), "PerFinancial - New Recurring Transaction", emailBody);
+                        System.out.println("Email sent to user");
                     } else {
                         System.out.println("Recurring entry already exists for this month.");
                     }

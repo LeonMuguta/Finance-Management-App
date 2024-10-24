@@ -13,6 +13,7 @@ function Expenses() {
     const [editingExpense, setEditingExpense] = useState(null); // State to hold expense data for editing
     const [showSuccessMessage, setShowSuccessMessage] = useState(false); // State to control the success message visibility
     const [windowWidth, setWindowWidth] = React.useState(window.innerWidth);
+    const [expandedMonths, setExpandedMonths] = useState({}); // Track expanded/collapsed months
 
     // Fetch user ID from localStorage when the component mounts
     useEffect(() => {
@@ -40,6 +41,25 @@ function Expenses() {
 
     // Sort expenses by date in descending order (most recent first)
     const sortedExpenses = [...expenses].sort((a, b) => new Date(b.date) - new Date(a.date));
+
+    // Group exoenses by month and year
+    const groupedExpenses = sortedExpenses.reduce((groups, expense) => {
+        const date = new Date(expense.date);
+        const monthYear = `${date.toLocaleString('default', { month: 'long' })} ${date.getFullYear()}`;
+        if (!groups[monthYear]) {
+            groups[monthYear] = [];
+        }
+        groups[monthYear].push(expense);
+        return groups;
+    }, {});
+
+    // Handle expanding/collapsing month sections
+    const toggleMonth = (monthYear) => {
+        setExpandedMonths((prevState) => ({
+            ...prevState,
+            [monthYear]: !prevState[monthYear],
+        }));
+    };
 
     // Function to handle adding expense
     const handleAddExpense = async (newExpense) => {
@@ -157,45 +177,52 @@ function Expenses() {
             <div className="expensesContent">
                 <h2>Expenses</h2>
                 
-                {/* Expense Table Section */}
-                <div className="expensesTableContainer">
-                    <table className="expensesTable">
-                        <thead>
-                            <tr>
-                                <th>Select</th>
-                                <th>Amount</th>
-                                <th>Category</th>
-                                <th>Description</th>
-                                <th>Recurring</th>
-                                <th>Date</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {sortedExpenses.length > 0 ? (
-                                sortedExpenses.map((expense) => (
-                                    <tr key={expense.id} className={selectedExpenses.includes(expense.id) ? 'selectedRow' : ''}>
-                                        <td>
-                                            <input 
-                                                type="checkbox" 
-                                                checked={selectedExpenses.includes(expense.id)} 
-                                                onChange={() => handleCheckboxChange(expense.id)} 
-                                            />
-                                        </td>
-                                        <td>R{expense.amount}</td>
-                                        <td>{expense.category}</td>
-                                        <td>{expense.description}</td>
-                                        <td>{expense.isRecurring ? 'Yes' : 'No'}</td>
-                                        <td>{new Date(expense.date).toLocaleDateString()}</td>
+                {/* Loop through grouped revenues by month */}
+                {Object.keys(groupedExpenses).map((monthYear) => (
+                    <div key={monthYear} className="monthSection">
+                        {/* Collapsible header */}
+                        <div className="monthHeader" onClick={() => toggleMonth(monthYear)}>
+                            <h3>{monthYear}</h3>
+                            <button>
+                                {expandedMonths[monthYear] ? 'Collapse' : 'Expand'}
+                            </button>
+                        </div>
+
+                        {/* Collapsible content */}
+                        {expandedMonths[monthYear] && (
+                            <table className="revenuesTable">
+                                <thead>
+                                    <tr>
+                                        <th>Select</th>
+                                        <th>Amount</th>
+                                        <th>Category</th>
+                                        <th>Description</th>
+                                        <th>Recurring</th>
+                                        <th>Date</th>
                                     </tr>
-                                ))
-                            ) : (
-                                <tr>
-                                    <td colSpan="5">No expenses to display</td>
-                                </tr>
-                            )}
-                        </tbody>
-                    </table>
-                </div>
+                                </thead>
+                                <tbody>
+                                    {groupedExpenses[monthYear].map((expense) => (
+                                        <tr key={expense.id} className={selectedExpenses.includes(expense.id) ? 'selectedRow' : ''}>
+                                            <td>
+                                                <input 
+                                                    type="checkbox" 
+                                                    checked={selectedExpenses.includes(expense.id)} 
+                                                    onChange={() => handleCheckboxChange(expense.id)} 
+                                                />
+                                            </td>
+                                            <td>R{expense.amount}</td>
+                                            <td>{expense.category}</td>
+                                            <td>{expense.description}</td>
+                                            <td>{expense.isRecurring ? 'Yes' : 'No'}</td>
+                                            <td>{new Date(expense.date).toLocaleDateString()}</td>
+                                        </tr>
+                                    ))}
+                                </tbody>
+                            </table>
+                        )}
+                    </div>
+                ))}
 
                 {/* Success message */}
                 {showSuccessMessage && (

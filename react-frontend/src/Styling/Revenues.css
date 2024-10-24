@@ -31,6 +31,7 @@
     width: 100%;
     border-collapse: collapse;
     text-align: left;
+    background-color: #fff;
 }
 
 .revenuesTable th, .revenuesTable td {
@@ -45,6 +46,33 @@
 
 .selectedRow {
     background-color: #cef3f8; /* Light blue color for highlighting */
+}
+
+.monthSection {
+    margin-bottom: 20px;
+}
+
+.monthHeader {
+    display: flex;
+    justify-content: space-between;
+    background-color: #ebebeb;
+    padding: 10px;
+    cursor: pointer;
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.monthHeader h3 {
+    margin: 0;
+}
+
+.monthHeader button {
+    background: none;
+    border: none;
+    font-size: 16px;
+    cursor: pointer;
+    color: #007bff;
 }
 
 .revenueButtons {
@@ -88,21 +116,20 @@
 
 /* Styling for the success message */
 .successMessage {
-    background-color: #4CAF50; /* Green background */
-    color: white; /* White text */
-    padding: 10px 20px; /* Padding around the message */
-    border-radius: 10px; /* Rounded corners */
-    position: fixed; /* Fixed position */
-    top: 20px; /* Distance from the top */
-    right: 20px; /* Distance from the right */
-    z-index: 1000; /* Ensure it's on top */
-    opacity: 1; /* Full opacity when visible */
-    transition: opacity 0.5s ease-out; /* Fade-out transition */
+    background-color: #4CAF50;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 10px;
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    z-index: 1000;
+    opacity: 1;
+    transition: opacity 0.5s ease-out;
 }
 
-/* Add this class when the message is fading out */
 .successMessage.fadeOut {
-    opacity: 0; /* Set opacity to 0 to fade out */
+    opacity: 0;
 }
 
 /* New media query for screen width 650px or below */
