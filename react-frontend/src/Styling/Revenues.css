@@ -1,7 +1,8 @@
 /* Container for Revenues page */
 .revenuesContainer {
     display: flex;
-    height: 110vh;
+    min-height: 100vh;
+    width: auto;
 }
 
 /* Main content next to the sidebar */
@@ -10,7 +11,7 @@
     padding: 20px;
     background-image: url('../Images/sky-blue-background.jpg');
     background-size: cover;
-    height: 110vh; /* Set height to 100% of the viewport height */
+    height: auto;
 }
 
 .revenuesContent h2 {
@@ -18,13 +19,12 @@
     margin-bottom: 20px;
 }
 
-.revenuesTableContainer {
-    background-color: white;
-    padding: 20px;
-    border-radius: 20px;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-    margin-bottom: 20px;
-    overflow-x: auto; /* Add horizontal scroll if the table is too wide */
+.tableContainer {
+    width: 100%;
+}
+
+.scrollableTable {
+    overflow-x: auto;
 }
 
 .revenuesTable {
@@ -45,7 +45,7 @@
 }
 
 .selectedRow {
-    background-color: #cef3f8; /* Light blue color for highlighting */
+    background-color: #cef3f8;
 }
 
 .monthSection {
@@ -114,6 +114,14 @@
     cursor: not-allowed;
 }
 
+/* Styling for the bar chart */
+.revenueChart {
+    margin-top: 20px;
+    width: 100%;
+    /* max-width: 800px; */
+    max-height: 800px;
+}
+
 /* Styling for the success message */
 .successMessage {
     background-color: #4CAF50;
@@ -132,6 +140,12 @@
     opacity: 0;
 }
 
+@media (max-width: 1400px) {
+    .revenueChart {
+        display: none;
+    }
+}
+
 /* New media query for screen width 650px or below */
 @media (max-width: 650px) {
     .revenuesContainer {
@@ -145,5 +159,10 @@
 
     .revenueButtons {
         margin-bottom: 10px;
+    }
+
+    .scrollableTable {
+        width: 100%;
+        overflow-x: scroll;
     }
 }

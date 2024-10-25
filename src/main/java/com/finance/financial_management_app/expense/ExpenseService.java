@@ -9,6 +9,7 @@ import java.time.LocalDate;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
+import com.finance.financial_management_app.security.EmailService;
 import com.finance.financial_management_app.user.User;
 import com.finance.financial_management_app.user.UserRepository;
 
@@ -16,10 +17,12 @@ import com.finance.financial_management_app.user.UserRepository;
 public class ExpenseService {
     private final ExpenseRepository expenseRepository;
     private final UserRepository userRepository;
+    private final EmailService emailService;
 
-    public ExpenseService(ExpenseRepository expenseRepository, UserRepository userRepository) {
+    public ExpenseService(ExpenseRepository expenseRepository, UserRepository userRepository, EmailService emailService) {
         this.expenseRepository = expenseRepository;
         this.userRepository = userRepository;
+        this.emailService = emailService;
     }
 
     // Updating expense transaction details
@@ -64,8 +67,8 @@ public class ExpenseService {
         }
     }
 
-    // Run this cron every day at midnight
-    @Scheduled(cron = "0 0 0 * * *")
+    // Run this cron every day at 8am
+    @Scheduled(cron = "0 0 8 * * *")
     public void addRecuringExpenses() {
         LocalDate today = LocalDate.now();
         int currentMonth = today.getMonthValue();
@@ -106,6 +109,13 @@ public class ExpenseService {
                         // Save the recurring expense transaction
                         expenseRepository.save(newExpense);
                         System.out.println("Recurring entry made");
+
+                        // Send email to notify user of recurring entry mades
+                        String emailBody = "Dear " + recurringExpense.getUser().getFirstName() + " " + recurringExpense.getUser().getSurname() + ",<br><br>" + 
+                                            "A new recurring expense transaction of R" + recurringExpense.getAmount() + " with the category '" + recurringExpense.getCategory() + "' was created for " + newTransactionDate + ". <br><br>" + 
+                                            "<strong>Kind Regards</strong><br><strong>PerFinancial</strong>";
+                        emailService.sendEmail(recurringExpense.getUser().getEmail(), "PerFinancial - New Recurring Expense Transaction", emailBody);
+                        System.out.println("Email sent to user");
                     } else {
                         System.out.println("Recurring entry already exists for this month");
                     }

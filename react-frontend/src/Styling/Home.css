@@ -85,17 +85,6 @@ h2 {
     flex: 1;
 }
 
-/* .transactions {
-    background-color: #fff;
-    border-radius: 20px;
-    padding: 20px;
-    width: 25%;
-    margin-right: 75px;
-    flex-grow: 1;
-    display: flex;
-    flex-direction: column;
-} */
-
 .transactions {
     max-height: 600px;
     background-color: #fff;

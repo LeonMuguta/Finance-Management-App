@@ -112,9 +112,9 @@ public class RevenueService {
 
                         // Send email to notify user of recurring entry made
                         String emailBody = "Dear " + recurringRevenue.getUser().getFirstName() + " " + recurringRevenue.getUser().getSurname() + ",<br><br>" + 
-                                            "A new recurring transaction of R" + recurringRevenue.getAmount() + " with the category '" + recurringRevenue.getCategory() + "' was created for " + newTransactionDate + ". <br><br>" + 
+                                            "A new recurring revenue transaction of R" + recurringRevenue.getAmount() + " with the category '" + recurringRevenue.getCategory() + "' was created for " + newTransactionDate + ". <br><br>" + 
                                             "<strong>Kind Regards</strong><br><strong>PerFinancial</strong>";
-                        emailService.sendEmail(recurringRevenue.getUser().getEmail(), "PerFinancial - New Recurring Transaction", emailBody);
+                        emailService.sendEmail(recurringRevenue.getUser().getEmail(), "PerFinancial - New Recurring Revenue Transaction", emailBody);
                         System.out.println("Email sent to user");
                     } else {
                         System.out.println("Recurring entry already exists for this month.");

@@ -3,8 +3,13 @@ import axios from "axios";
 import Sidebar from "./Sidebar";
 import TopNav from "./TopNav";
 import AddExpenseModal from "./AddExpenseModal";
+import { Bar } from 'react-chartjs-2';
+import { Chart as ChartJS, CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend } from 'chart.js';
 import '../Styling/Expenses.css';
-// Expense function
+
+// Register necessary chart components
+ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend);
+
 function Expenses() {
     const [expenses, setExpenses] = useState([]); // State to hold fetched expense data
     const [userId, setUserId] = useState(null); // State to hold logged-in user ID
@@ -52,6 +57,36 @@ function Expenses() {
         groups[monthYear].push(expense);
         return groups;
     }, {});
+
+    // Calculate total expense for each month
+    const monthlyTotals = Object.keys(groupedExpenses).map((monthYear) => {
+        const total = groupedExpenses[monthYear].reduce((sum, expense) => sum + expense.amount, 0);
+        return { monthYear, total };
+    });
+
+    // Sort monthlyTotals by date in ascending order
+    monthlyTotals.sort((a, b) => new Date(a.monthYear) - new Date(b.monthYear));
+
+    const chartData = {
+        labels: monthlyTotals.map(item => item.monthYear),
+        datasets: [
+            {
+                label: 'Total Expense',
+                data: monthlyTotals.map(item => item.total),
+                backgroundColor: '#fff',
+                borderColor: 'black',
+                borderWidth: 1
+            }
+        ]
+    };
+    
+    const chartOptions = {
+        responsive: true,
+        plugins: {
+            legend: { position: 'top' },
+            title: { display: true, text: 'Total Expenses per Month' }
+        }
+    };
 
     // Handle expanding/collapsing month sections
     const toggleMonth = (monthYear) => {
@@ -177,7 +212,7 @@ function Expenses() {
             <div className="expensesContent">
                 <h2>Expenses</h2>
                 
-                {/* Loop through grouped revenues by month */}
+                {/* Loop through grouped expenses by month */}
                 {Object.keys(groupedExpenses).map((monthYear) => (
                     <div key={monthYear} className="monthSection">
                         {/* Collapsible header */}
@@ -190,36 +225,38 @@ function Expenses() {
 
                         {/* Collapsible content */}
                         {expandedMonths[monthYear] && (
-                            <table className="revenuesTable">
-                                <thead>
-                                    <tr>
-                                        <th>Select</th>
-                                        <th>Amount</th>
-                                        <th>Category</th>
-                                        <th>Description</th>
-                                        <th>Recurring</th>
-                                        <th>Date</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    {groupedExpenses[monthYear].map((expense) => (
-                                        <tr key={expense.id} className={selectedExpenses.includes(expense.id) ? 'selectedRow' : ''}>
-                                            <td>
-                                                <input 
-                                                    type="checkbox" 
-                                                    checked={selectedExpenses.includes(expense.id)} 
-                                                    onChange={() => handleCheckboxChange(expense.id)} 
-                                                />
-                                            </td>
-                                            <td>R{expense.amount}</td>
-                                            <td>{expense.category}</td>
-                                            <td>{expense.description}</td>
-                                            <td>{expense.isRecurring ? 'Yes' : 'No'}</td>
-                                            <td>{new Date(expense.date).toLocaleDateString()}</td>
+                            <div className={`tableContainer ${windowWidth <= 650 ? 'scrollableTable' : ''}`}>
+                                <table className="expensesTable">
+                                    <thead>
+                                        <tr>
+                                            <th>Select</th>
+                                            <th>Amount</th>
+                                            <th>Category</th>
+                                            <th>Description</th>
+                                            <th>Recurring</th>
+                                            <th>Date</th>
                                         </tr>
-                                    ))}
-                                </tbody>
-                            </table>
+                                    </thead>
+                                    <tbody>
+                                        {groupedExpenses[monthYear].map((expense) => (
+                                            <tr key={expense.id} className={selectedExpenses.includes(expense.id) ? 'selectedRow' : ''}>
+                                                <td>
+                                                    <input 
+                                                        type="checkbox" 
+                                                        checked={selectedExpenses.includes(expense.id)} 
+                                                        onChange={() => handleCheckboxChange(expense.id)} 
+                                                    />
+                                                </td>
+                                                <td>R{expense.amount}</td>
+                                                <td>{expense.category}</td>
+                                                <td>{expense.description}</td>
+                                                <td>{expense.isRecurring ? 'Yes' : 'No'}</td>
+                                                <td>{new Date(expense.date).toLocaleDateString()}</td>
+                                            </tr>
+                                        ))}
+                                    </tbody>
+                                </table>
+                            </div>
                         )}
                     </div>
                 ))}
@@ -259,6 +296,11 @@ function Expenses() {
                     onAddExpense={editingExpense ? handleEditExpense : handleAddExpense}
                     editingExpense={editingExpense} // Pass selected expense for editing
                 />
+
+                {/* Bar Chart Section */}
+                <div className="expenseChart">
+                    <Bar data={chartData} options={chartOptions} />
+                </div>
             </div>
         </div>
     );

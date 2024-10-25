@@ -4,7 +4,7 @@
 }
 
 .profileContent {
-    flex-grow: 1;
+    flex: 1;
     padding: 20px;
     background-image: url('../Images/sky-blue-background.jpg');
     background-size: cover;
@@ -211,4 +211,20 @@ button.cancel:hover {
 
 .changePasswordForm .cancel:hover {
     background-color: #e53935;
+}
+
+/* New media query for screen width 650px or below */
+@media (max-width: 650px) {
+    .profileContainer {
+        flex-direction: column; /* Stack children vertically */
+        height: 100vh;
+    }
+
+    .profileContent {
+        width: 100%; /* Ensure content takes full width */
+    }
+
+    button {
+        margin-bottom: 10px;
+    }
 }

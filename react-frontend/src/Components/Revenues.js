@@ -3,7 +3,12 @@ import axios from "axios";
 import Sidebar from "./Sidebar";
 import TopNav from "./TopNav";
 import AddRevenueModal from "./AddRevenueModal";
+import { Bar } from 'react-chartjs-2';
+import { Chart as ChartJS, CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend } from 'chart.js';
 import '../Styling/Revenues.css';
+
+// Register necessary chart components
+ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend);
 
 function Revenues() {
     const [revenues, setRevenues] = useState([]); // State to hold fetched revenue data
@@ -52,6 +57,36 @@ function Revenues() {
         groups[monthYear].push(revenue);
         return groups;
     }, {});
+
+    // Calculate total revenue for each month
+    const monthlyTotals = Object.keys(groupedRevenues).map((monthYear) => {
+        const total = groupedRevenues[monthYear].reduce((sum, revenue) => sum + revenue.amount, 0);
+        return { monthYear, total };
+    });
+
+    // Sort monthlyTotals by date in ascending order
+    monthlyTotals.sort((a, b) => new Date(a.monthYear) - new Date(b.monthYear));
+
+    const chartData = {
+        labels: monthlyTotals.map(item => item.monthYear),
+        datasets: [
+            {
+                label: 'Total Revenue',
+                data: monthlyTotals.map(item => item.total),
+                backgroundColor: '#fff', // Light teal background
+                borderColor: 'black',       // Dark teal border
+                borderWidth: 1
+            }
+        ]
+    };
+    
+    const chartOptions = {
+        responsive: true,
+        plugins: {
+            legend: { position: 'top' },
+            title: { display: true, text: 'Total Revenues per Month' }
+        }
+    };
 
     // Handle expanding/collapsing month sections
     const toggleMonth = (monthYear) => {
@@ -190,36 +225,38 @@ function Revenues() {
 
                         {/* Collapsible content */}
                         {expandedMonths[monthYear] && (
-                            <table className="revenuesTable">
-                                <thead>
-                                    <tr>
-                                        <th>Select</th>
-                                        <th>Amount</th>
-                                        <th>Category</th>
-                                        <th>Description</th>
-                                        <th>Recurring</th>
-                                        <th>Date</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    {groupedRevenues[monthYear].map((revenue) => (
-                                        <tr key={revenue.id} className={selectedRevenues.includes(revenue.id) ? 'selectedRow' : ''}>
-                                            <td>
-                                                <input 
-                                                    type="checkbox" 
-                                                    checked={selectedRevenues.includes(revenue.id)} 
-                                                    onChange={() => handleCheckboxChange(revenue.id)} 
-                                                />
-                                            </td>
-                                            <td>R{revenue.amount}</td>
-                                            <td>{revenue.category}</td>
-                                            <td>{revenue.description}</td>
-                                            <td>{revenue.isRecurring ? 'Yes' : 'No'}</td>
-                                            <td>{new Date(revenue.date).toLocaleDateString()}</td>
+                            <div className={`tableContainer ${windowWidth <= 650 ? 'scrollableTable' : ''}`}>
+                                <table className="revenuesTable">
+                                    <thead>
+                                        <tr>
+                                            <th>Select</th>
+                                            <th>Amount</th>
+                                            <th>Category</th>
+                                            <th>Description</th>
+                                            <th>Recurring</th>
+                                            <th>Date</th>
                                         </tr>
-                                    ))}
-                                </tbody>
-                            </table>
+                                    </thead>
+                                    <tbody>
+                                        {groupedRevenues[monthYear].map((revenue) => (
+                                            <tr key={revenue.id} className={selectedRevenues.includes(revenue.id) ? 'selectedRow' : ''}>
+                                                <td>
+                                                    <input 
+                                                        type="checkbox" 
+                                                        checked={selectedRevenues.includes(revenue.id)} 
+                                                        onChange={() => handleCheckboxChange(revenue.id)} 
+                                                    />
+                                                </td>
+                                                <td>R{revenue.amount}</td>
+                                                <td>{revenue.category}</td>
+                                                <td>{revenue.description}</td>
+                                                <td>{revenue.isRecurring ? 'Yes' : 'No'}</td>
+                                                <td>{new Date(revenue.date).toLocaleDateString()}</td>
+                                            </tr>
+                                        ))}
+                                    </tbody>
+                                </table>
+                            </div>
                         )}
                     </div>
                 ))}
@@ -259,6 +296,11 @@ function Revenues() {
                     onAddRevenue={editingRevenue ? handleEditRevenue : handleAddRevenue}
                     editingRevenue={editingRevenue} // Pass selected revenue for editing
                 />
+
+                {/* Bar Chart Section */}
+                <div className="revenueChart">
+                    <Bar data={chartData} options={chartOptions} />
+                </div>
             </div>
         </div>
     );
