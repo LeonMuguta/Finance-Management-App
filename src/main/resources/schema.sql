@@ -34,3 +34,14 @@ CREATE TABLE IF NOT EXISTS Expense (
     FOREIGN KEY (user_id) REFERENCES Users(id)
 );
 
+-- Monthly budget goals table
+CREATE TABLE IF NOT EXISTS monthly_budget_goal (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    month VARCHAR(20) NOT NULL,
+    year INT NOT NULL,
+    min_revenue_goal DECIMAL(15, 2),
+    max_expense_goal DECIMAL(15, 2),
+    net_balance_goal DECIMAL(15, 2),
+    user_id INT NOT NULL,
+    FOREIGN KEY (user_id) REFERENCES Users(id)
+);

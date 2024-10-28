@@ -11,7 +11,7 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 
 @SpringBootApplication
 @EnableScheduling
-@EnableJpaRepositories(basePackages = {"com.finance.financial_management_app.security", "com.finance.financial_management_app.user", "com.finance.financial_management_app.revenue", "com.finance.financial_management_app.expense"})
+@EnableJpaRepositories(basePackages = {"com.finance.financial_management_app.security", "com.finance.financial_management_app.user", "com.finance.financial_management_app.revenue", "com.finance.financial_management_app.expense", "com.finance.financial_management_app.budget"})
 public class FinancialManagementAppApplication {
 
 	public static void main(String[] args) {
