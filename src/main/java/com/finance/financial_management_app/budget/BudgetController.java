@@ -69,6 +69,12 @@ public class BudgetController {
                 throw new IllegalArgumentException("Year must be a valid four-digit integer between 2020 and 2030");
             }
 
+            // Check if a budget entry for the same month, year, and user already exists
+            if (budgetRepository.findByUserAndMonthAndYear(user, month, year).isPresent()) {
+                return ResponseEntity.badRequest()
+                        .body("A budget goal entry with the same month and year already exists, please go make changes to that entry instead.");
+            }
+
             BigDecimal minRevenue = new BigDecimal(budgetData.get("minRevenue").toString());
             if (minRevenue.compareTo(BigDecimal.ZERO) < 0) {
                 throw new IllegalArgumentException("Minimum revenue goal cannot be negative");

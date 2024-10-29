@@ -28,6 +28,12 @@ function Sidebar() {
                     </NavLink>
                 </li>
                 <li className="menuItem">
+                    <NavLink to="/budget" activeClassName="active">
+                        <i className="fa fa-bullseye" aria-hidden="true"></i>
+                        <span>Budget Goals</span>
+                    </NavLink>
+                </li>
+                <li className="menuItem">
                     <NavLink to="/profile" activeClassName="active">
                         <i className="fa fa-user" aria-hidden="true"></i>
                         <span>Profile</span>

@@ -5,7 +5,7 @@
 
 .profileContent {
     flex: 1;
-    padding: 20px;
+    padding: 30px;
     background-image: url('../Images/sky-blue-background.jpg');
     background-size: cover;
     overflow-y: auto;

@@ -1,0 +1,137 @@
+/* Container for the budget goals page */
+.budget-container {
+    display: flex;
+    flex-direction: row;
+    min-height: 100vh;
+    width: auto;
+}
+
+/* Main content next to the sidebar */
+.budget-content {
+    flex: 1;
+    padding: 30px;
+    background-image: url('../Images/sky-blue-background.jpg');
+    background-size: cover;
+    height: auto;
+}
+
+.budget-content h2 {
+    font-size: 28px;
+    margin-bottom: 20px;
+}
+
+.budget-list {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    margin-bottom: 20px;
+}
+
+.budget-item {
+    position: relative;
+    background-color: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    padding: 15px;
+}
+
+.budget-item h3 {
+    font-size: 1.2rem;
+    font-weight: 500;
+    color: #2c3e50;
+    margin-bottom: 10px;
+}
+
+.budget-item p {
+    font-size: 1rem;
+    color: #34495e;
+    margin: 5px 0;
+}
+
+.edit-icon {
+    position: absolute;
+    top: 10px;
+    right: 20px;
+    color: grey;
+    cursor: pointer;
+}
+
+.edit-icon:hover {
+    color: darkgray;
+}
+
+.delete-icon {
+    position: absolute;
+    top: 110px;
+    right: 20px;
+    color: red;
+    cursor: pointer;
+}
+
+.delete-icon:hover {
+    color: darkred;
+}
+
+/* Button Styles */
+.budgetButtons {
+    display: flex;
+    gap: 20px;
+}
+
+.addBudgetButton {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 10px;
+    color: white;
+    cursor: pointer;
+}
+
+.addBudgetButton {
+    background-color: #007bff;
+}
+
+.addBudgetButton i {
+    margin-right: 8px;
+}
+
+/* Styling for the success message */
+.successMessage {
+    background-color: #4CAF50;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 10px;
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    z-index: 1000;
+    opacity: 1;
+    transition: opacity 0.5s ease-out;
+}
+
+.successMessage.fadeOut {
+    opacity: 0;
+}
+
+/* New media query for screen width 650px or below */
+@media (max-width: 650px) {
+    .budget-container {
+        flex-direction: column; /* Stack children vertically */
+        height: 100%;
+    }
+
+    .budget-content {
+        width: 100%; /* Ensure content takes full width */
+    }
+}
+
+/* New media query for screen width 500px or below */
+@media (max-width: 500px) {
+    .budget-item {
+        flex-direction: column; /* Keep column layout */
+    }
+
+    .delete-icon {
+        align-self: flex-start; /* Align to the left on small screens */
+        margin-top: 8px;
+    }
+}

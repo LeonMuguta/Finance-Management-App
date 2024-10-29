@@ -247,7 +247,7 @@ function Expenses() {
                                                         onChange={() => handleCheckboxChange(expense.id)} 
                                                     />
                                                 </td>
-                                                <td>R{expense.amount}</td>
+                                                <td>R{expense.amount.toFixed(2)}</td>
                                                 <td>{expense.category}</td>
                                                 <td>{expense.description}</td>
                                                 <td>{expense.isRecurring ? 'Yes' : 'No'}</td>

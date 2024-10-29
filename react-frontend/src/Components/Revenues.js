@@ -247,7 +247,7 @@ function Revenues() {
                                                         onChange={() => handleCheckboxChange(revenue.id)} 
                                                     />
                                                 </td>
-                                                <td>R{revenue.amount}</td>
+                                                <td>R{revenue.amount.toFixed(2)}</td>
                                                 <td>{revenue.category}</td>
                                                 <td>{revenue.description}</td>
                                                 <td>{revenue.isRecurring ? 'Yes' : 'No'}</td>

@@ -9,6 +9,7 @@ import Home from './Components/Home';
 import Revenues from './Components/Revenues';
 import Expenses from './Components/Expenses';
 import Profile from './Components/Profile';
+import Budget from './Components/BudgetGoals';
 
 function App() {
   return (
@@ -22,6 +23,7 @@ function App() {
         <Route path="/revenues" element={ <Revenues /> } />
         <Route path="/expenses" element={ <Expenses /> } />
         <Route path="/profile" element={ <Profile /> } />
+        <Route path="/budget" element={ <Budget /> } />
       </Routes>
     </Router>
   );
