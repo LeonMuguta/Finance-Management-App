@@ -81,6 +81,11 @@ const AddRevenueModal = ({ isOpen, onClose, onAddRevenue, editingRevenue  }) => 
         }
     };
 
+    const handleCancel = () => {
+        setErrorMessage('');
+        onClose();
+    };
+
     if (!isOpen) return null; // Don't render if modal is not open
 
     return (
@@ -136,7 +141,7 @@ const AddRevenueModal = ({ isOpen, onClose, onAddRevenue, editingRevenue  }) => 
                     {errorMessage && <p className="error-message">{errorMessage}</p>}
 
                     <button type="submit" className="submit"> {editingRevenue ? 'Confirm Edit' : 'Add Revenue'} </button>
-                    <button type="button" className="cancel" onClick={onClose}>Cancel</button>
+                    <button type="button" className="cancel" onClick={handleCancel}>Cancel</button>
                 </form>
             </div>
         </div>

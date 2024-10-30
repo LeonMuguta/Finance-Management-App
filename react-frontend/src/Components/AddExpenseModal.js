@@ -81,6 +81,11 @@ function AddExpenseModal({ isOpen, onClose, onAddExpense, editingExpense  }) {
         }
     };
 
+    const handleCancel = () => {
+        setErrorMessage('');
+        onClose();
+    };
+
     if (!isOpen) return null; // Don't render if modal is not open
 
     return ( 
@@ -136,7 +141,7 @@ function AddExpenseModal({ isOpen, onClose, onAddExpense, editingExpense  }) {
                     {errorMessage && <p className="error-message">{errorMessage}</p>}
 
                     <button type="submit" className="submit"> {editingExpense ? 'Confirm Edit' : 'Add Expense'} </button>
-                    <button type="button" className="cancel" onClick={onClose}>Cancel</button>
+                    <button type="button" className="cancel" onClick={handleCancel}>Cancel</button>
                 </form>
             </div>
         </div>

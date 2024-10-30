@@ -111,7 +111,7 @@ function Revenues() {
             } else {
                 // eslint-disable-next-line
                 throw 'An error occurred while creating revenue.';
-            }            
+            }
         }
     };
 
@@ -128,7 +128,12 @@ function Revenues() {
             );
             setEditingRevenue(null); // Reset editing revenue
         } catch (error) {
-            console.error('Error updating revenue: ', error);
+            if (error.response) {
+                throw error.response.data;  // Return server validation error
+            } else {
+                // eslint-disable-next-line
+                throw 'An error occurred while creating revenue.';
+            }
         }
     };
 
@@ -240,18 +245,18 @@ function Revenues() {
                                     <tbody>
                                         {groupedRevenues[monthYear].map((revenue) => (
                                             <tr key={revenue.id} className={selectedRevenues.includes(revenue.id) ? 'selectedRow' : ''}>
-                                                <td>
+                                                <td style={{ width: '5%' }}>
                                                     <input 
                                                         type="checkbox" 
                                                         checked={selectedRevenues.includes(revenue.id)} 
                                                         onChange={() => handleCheckboxChange(revenue.id)} 
                                                     />
                                                 </td>
-                                                <td>R{revenue.amount.toFixed(2)}</td>
-                                                <td>{revenue.category}</td>
-                                                <td>{revenue.description}</td>
-                                                <td>{revenue.isRecurring ? 'Yes' : 'No'}</td>
-                                                <td>{new Date(revenue.date).toLocaleDateString()}</td>
+                                                <td style={{ width: '10%' }}>R{revenue.amount.toFixed(2)}</td>
+                                                <td style={{ width: '20%' }}>{revenue.category}</td>
+                                                <td style={{ width: '50%' }}>{revenue.description}</td>
+                                                <td style={{ width: '5%' }}>{revenue.isRecurring ? 'Yes' : 'No'}</td>
+                                                <td style={{ width: '10%' }}>{new Date(revenue.date).toLocaleDateString()}</td>
                                             </tr>
                                         ))}
                                     </tbody>

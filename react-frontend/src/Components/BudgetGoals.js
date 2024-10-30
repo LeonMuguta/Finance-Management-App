@@ -37,6 +37,9 @@ function Budget() {
         }
     }, [userId]); // Dependency on userId, fetch data once it's available
 
+    // Sort budgets by date in descending order (most recent first)
+    const sortedBudgets = [...budgets].sort((a, b) => new Date(b.id) - new Date(a.id));
+
     // Function to handle adding a budget goal
     const handleAddBudget = async (newBudget) => {
         try {
@@ -69,7 +72,12 @@ function Budget() {
             );
             setEditingBudget(null); // Reset editing budget
         } catch (error) {
-            console.error('Error updating budget goal: ', error);
+            if (error.response) {
+                throw error.response.data;  // Return server validation error
+            } else {
+                // eslint-disable-next-line
+                throw 'An error occurred while creating the budget.';
+            }            
         }
     };
 
@@ -80,9 +88,8 @@ function Budget() {
     };
 
     // Open the modal to edit the selected expense
-    const handleEditClick = () => {
-        const budgetToEdit = budgets.find(budget => budget.id);
-        setEditingBudget(budgetToEdit); // Set the expense to be edited
+    const handleEditClick = (budget) => {
+        setEditingBudget(budget); // Set the expense to be edited
         setIsModalOpen(true); // Open the modal
     };
 
@@ -92,7 +99,7 @@ function Budget() {
         if (window.confirm('Are you sure you want to delete? This action cannot be undone.')) {
             try {
                 await axios.delete(`http://localhost:8080/budget/${id}`);
-                setBudgets(budgets.filter((budget) => budget.id !== id)); // Update UI after delete
+                setBudgets(sortedBudgets.filter((budget) => budget.id !== id)); // Update UI after delete
                 
                 console.log("Successfully deleted the budget goal");
 
@@ -133,12 +140,12 @@ function Budget() {
                 <h2>Your Monthly Budget Goals</h2>
 
                 <div className="budget-list">
-                    {budgets.length > 0 ? (
-                        budgets.map((budget, index) => (
+                    {sortedBudgets.length > 0 ? (
+                        sortedBudgets.map((budget, index) => (
                             <div key={index} className="budget-item">
                                 <i 
                                     className="fa fa-pencil edit-icon" 
-                                    onClick={handleEditClick}
+                                    onClick={() => handleEditClick(budget)}
                                 ></i>
                                 <h3><strong>{budget.month} {budget.year}</strong></h3>
                                 <p>Minimum Revenue Goal: <strong>R{budget.minRevenue}</strong></p>

@@ -80,6 +80,11 @@ function AddBudgetModal({ isOpen, onClose, onAddBudget, editingBudget }) {
         }
     };
 
+    const handleCancel = () => {
+        setErrorMessage(''); // Clear the error message
+        onClose(); // Call onClose to close the modal
+    };
+
     if (!isOpen) return null; // Don't render if modal is not open
 
     return (
@@ -144,7 +149,7 @@ function AddBudgetModal({ isOpen, onClose, onAddBudget, editingBudget }) {
                     {errorMessage && <p className="error-message">{errorMessage}</p>}
 
                     <button type="submit" className="submit">{editingBudget ? 'Confirm Edit' : 'Submit'}</button>
-                    <button type="button" className="cancel" onClick={onClose}>Cancel</button>
+                    <button type="button" className="cancel" onClick={handleCancel}>Cancel</button>
                     
                 </form>
             </div>

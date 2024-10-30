@@ -12,5 +12,10 @@ public enum Month {
     SEPTEMBER,
     OCTOBER,
     NOVEMBER,
-    DECEMBER
+    DECEMBER;
+
+    // Convert integer month to Enum (1-12)
+    public static Month fromInt(int month) {
+        return Month.values()[month - 1];
+    }
 }

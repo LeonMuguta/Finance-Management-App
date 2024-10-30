@@ -111,7 +111,7 @@ function Expenses() {
             } else {
                 // eslint-disable-next-line
                 throw 'An error occurred while creating expense.';
-            }            
+            }
         }
     };
 
@@ -128,7 +128,12 @@ function Expenses() {
             );
             setEditingExpense(null); // Reset editing expense
         } catch (error) {
-            console.error('Error updating expense: ', error);
+            if (error.response) {
+                throw error.response.data;  // Return server validation error
+            } else {
+                // eslint-disable-next-line
+                throw 'An error occurred while creating expense.';
+            }
         }
     };
 
@@ -240,18 +245,18 @@ function Expenses() {
                                     <tbody>
                                         {groupedExpenses[monthYear].map((expense) => (
                                             <tr key={expense.id} className={selectedExpenses.includes(expense.id) ? 'selectedRow' : ''}>
-                                                <td>
+                                                <td style={{ width: '5%' }}>
                                                     <input 
                                                         type="checkbox" 
                                                         checked={selectedExpenses.includes(expense.id)} 
                                                         onChange={() => handleCheckboxChange(expense.id)} 
                                                     />
                                                 </td>
-                                                <td>R{expense.amount.toFixed(2)}</td>
-                                                <td>{expense.category}</td>
-                                                <td>{expense.description}</td>
-                                                <td>{expense.isRecurring ? 'Yes' : 'No'}</td>
-                                                <td>{new Date(expense.date).toLocaleDateString()}</td>
+                                                <td style={{ width: '10%' }}>R{expense.amount.toFixed(2)}</td>
+                                                <td style={{ width: '20%' }}>{expense.category}</td>
+                                                <td style={{ width: '50%' }}>{expense.description}</td>
+                                                <td style={{ width: '5%' }}>{expense.isRecurring ? 'Yes' : 'No'}</td>
+                                                <td style={{ width: '10%' }}>{new Date(expense.date).toLocaleDateString()}</td>
                                             </tr>
                                         ))}
                                     </tbody>

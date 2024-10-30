@@ -15,6 +15,7 @@ function Home() {
     const [totalRevenue, setTotalRevenue] = useState(0);
     const [totalExpense, setTotalExpense] = useState(0);
     const [transactions, setTransactions] = useState([]);
+    const [goalData, setGoalData] = useState(null);
     const [userId, setUserId] = useState(null);
     const [windowWidth, setWindowWidth] = React.useState(window.innerWidth);
 
@@ -124,6 +125,29 @@ function Home() {
         fetchData();
     }, [userId]);
 
+    // Fetch goal data for the dashboard
+    useEffect(() => {
+        const fetchGoalData = async () => {
+            if (userId) {
+                try {
+                    const response = await axios.get(`http://localhost:8080/budget/user/${userId}`);
+                    
+                    // Get the current month
+                    const currentMonth = new Date().toLocaleString('default', { month: 'long' }).toUpperCase();
+
+                    // Filter the goal data for the current month
+                    const filteredGoals = response.data.filter(goal => goal.month === currentMonth);
+
+                    setGoalData(filteredGoals[0]);
+                } catch (error) {
+                    console.error("Error fetching goal data: ", error);
+                }
+            }
+        };
+
+        fetchGoalData();
+    }, [userId]);
+
     React.useEffect(() => {
         const handleResize = () => {
             setWindowWidth(window.innerWidth);
@@ -170,6 +194,20 @@ function Home() {
                             </p>
                         </div>
                     </div>
+                </div>
+
+                {/* Goal Section */}
+                <div className="goalsSection">
+                    <h3>Monthly Goals</h3>
+                    {goalData ? (
+                        <div className="goalsSummary">
+                            <p className={goalData.minRevenue < totalRevenue ? 'positiveAmount' : 'negativeAmount'}><i className="fa fa-bullseye" aria-hidden="true"></i> Revenue Goal: <strong>R{goalData.minRevenue}</strong></p>
+                            <p className={goalData.maxExpense > totalExpense ? 'positiveAmount' : 'negativeAmount'}><i className="fa fa-bullseye" aria-hidden="true"></i> Expense Limit: <strong>R{goalData.maxExpense}</strong></p>
+                            <p className={goalData.netBalanceGoal < netBalance ? 'positiveAmount' : 'negativeAmount'}><i className="fa fa-bullseye" aria-hidden="true"></i> Net Balance Goal: <strong>R{goalData.netBalanceGoal}</strong></p>
+                        </div>
+                    ) : (
+                        <p>No budget goals set for the current month...</p>
+                    )}
                 </div>
 
                 {/* New Section for Transactions and Monthly Statistics */}

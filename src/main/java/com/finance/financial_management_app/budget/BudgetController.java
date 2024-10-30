@@ -87,7 +87,7 @@ public class BudgetController {
 
             BigDecimal netBalanceGoal = new BigDecimal(budgetData.get("netBalanceGoal").toString());
             if (netBalanceGoal.compareTo(BigDecimal.ZERO) < 0) {
-                throw new IllegalArgumentException("Maximum expense goal cannot be negative");
+                throw new IllegalArgumentException("Net balance goal cannot be negative");
             }
 
             budget.setMonth(month);
@@ -114,7 +114,7 @@ public class BudgetController {
             Optional<Budget> existingBudget = budgetRepository.findById(id);
 
             if (existingBudget.isPresent()) {
-                Budget budget = new Budget();
+                Budget budget = existingBudget.get();
 
                 // Extract user ID from the request data
                 @SuppressWarnings("unchecked")
@@ -138,6 +138,13 @@ public class BudgetController {
                 if (year == null || year < 2020 || year > 2030) {
                     throw new IllegalArgumentException("Year must be a valid four-digit integer between 2020 and 2030");
                 }
+
+                // Check if a budget entry for the same month, year, and user already exists
+                Optional<Budget> duplicateBudget = budgetRepository.findByUserAndMonthAndYear(user, month, year);
+                if (duplicateBudget.isPresent() && !duplicateBudget.get().getId().equals(id)) {
+                    return ResponseEntity.badRequest()
+                            .body("A budget goal entry with the same month and year already exists, please go make changes to that entry instead.");
+                }
     
                 BigDecimal minRevenue = new BigDecimal(budgetDetails.get("minRevenue").toString());
                 if (minRevenue.compareTo(BigDecimal.ZERO) < 0) {
@@ -151,7 +158,7 @@ public class BudgetController {
     
                 BigDecimal netBalanceGoal = new BigDecimal(budgetDetails.get("netBalanceGoal").toString());
                 if (netBalanceGoal.compareTo(BigDecimal.ZERO) < 0) {
-                    throw new IllegalArgumentException("Maximum expense goal cannot be negative");
+                    throw new IllegalArgumentException("Net balance goal cannot be negative");
                 }
 
                 budget.setMonth(month);
@@ -165,7 +172,7 @@ public class BudgetController {
                 return ResponseEntity.ok("Budget Goal Successfully Updated");
             } else {
                 // Return 404 Not Found if the revenue transaction does not exist
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Budget goal does not exist");
+                return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Budget goal does not exist");
             }
         } catch (IllegalArgumentException e) {
             return ResponseEntity.badRequest().body(e.getMessage());
