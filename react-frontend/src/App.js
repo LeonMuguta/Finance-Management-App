@@ -4,6 +4,7 @@ import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import Welcome from './Components/Welcome';
 import SignUp from './Components/SignUp';
 import Login from './Components/Login';
+import VerifyCode from './Components/VerifyCode';
 import Success from './Components/Success';
 import Home from './Components/Home';
 import Revenues from './Components/Revenues';
@@ -18,6 +19,7 @@ function App() {
         <Route path="/" element={ <Welcome /> } />
         <Route path="/signup" element={ <SignUp /> } />
         <Route path="/login" element={ <Login /> } />
+        <Route path="/verify" element={ <VerifyCode /> } />
         <Route path="/success" element={ <Success /> } />
         <Route path="/home" element={ <Home /> } />
         <Route path="/revenues" element={ <Revenues /> } />

@@ -45,3 +45,12 @@ CREATE TABLE IF NOT EXISTS monthly_budget_goal (
     user_id INT NOT NULL,
     FOREIGN KEY (user_id) REFERENCES Users(id)
 );
+
+-- Verification code table
+CREATE TABLE IF NOT EXISTS verification_code (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    code VARCHAR(20) NOT NULL,
+    expiration_time TIMESTAMP NOT NULL,
+    user_id INT NOT NULL,
+    FOREIGN KEY (user_id) REFERENCES Users(id)
+)

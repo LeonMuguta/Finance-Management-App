@@ -8,8 +8,9 @@ function Login() {
         email: '',
         password: ''
     });
-    const [error, setError] = useState(''); // State for handling error messages
-    const navigate = useNavigate(); // Hook for programmatic navigation
+    const [error, setError] = useState('');
+    const [success, setSuccess] = useState('');
+    const navigate = useNavigate();
 
     const handleChange = (e) => {
         setFormData({
@@ -23,18 +24,19 @@ function Login() {
         try {
             const response = await axios.post('http://localhost:8080/api/auth/login', formData);
             if (response.status === 200) {
-                // Assuming the response contains the user's first name in the data
-                const { firstName } = response.data;
-                const { surname } = response.data;
-                const { id } = response.data;
+                setSuccess('Sending verification code to your email');
 
+                // Assuming the response contains the user's first name in the data
+                const { firstName, surname, id } = response.data;
                 // Store the user's first name in localStorage
                 localStorage.setItem('firstName', firstName);
                 localStorage.setItem('surname', surname);
-                localStorage.setItem('id', id);
+                localStorage.setItem('id', id);                
 
-                // Navigate to the home page after successful login
-                navigate('/home');
+                // Delay navigation to display the success message
+                setTimeout(() => {
+                    navigate('/verify');
+                }, 2000);
             }
         } catch (err) {
             // Handle error response
@@ -73,6 +75,7 @@ function Login() {
 
                 <button type="submit" className="loginBtn">Log In</button>
                 {error && <p className="error">{ error }</p>}
+                {success && <p className="success">{ success }</p>}
             </form>
         </div>
     );

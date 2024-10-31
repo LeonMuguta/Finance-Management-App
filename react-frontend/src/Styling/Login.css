@@ -41,6 +41,7 @@
     border: none;
     border-radius: 5px;
     cursor: pointer;
+    margin-bottom: 10px;
 }
 
 .loginBtn:hover {
@@ -65,10 +66,19 @@
 }
 
 .error {
-    color: red; /* Red text color for errors */
-    font-size: 14px; /* Font size */
-    margin-top: 10px; /* Space above the error message */
-    margin-bottom: 10px; /* Space below the error message */
-    font-weight: bold; /* Bold text */
-    text-align: left; /* Align text to the left */
+    color: red;
+    font-size: 14px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    font-weight: bold;
+    text-align: left;
+}
+
+.success {
+    color: green;
+    font-size: 14px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    font-weight: bold;
+    text-align: left;
 }
