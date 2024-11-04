@@ -48,7 +48,7 @@ public class UserControllerTest {
     @Test
     void registerUser_ValidInput_ReturnsOK() throws Exception {
         // Arrange
-        User newUser = new User("Jane", "Doe", LocalDate.of(2000, 1, 1), Gender.FEMALE, "jane@example.com", "testpassword123");
+        User newUser = new User("Jane", "Doe", LocalDate.of(2000, 1, 1), Gender.FEMALE, "jane@example.com", "testpassword123", false);
         when(userService.registerUser(any(User.class))).thenReturn(newUser);
 
         // Act & Assert
@@ -64,7 +64,7 @@ public class UserControllerTest {
     @Test
     void registerUser_UserAlreadyExists_ReturnsBadRequest() throws Exception {
         // Arrange
-        User newUser = new User("Jane", "Doe", LocalDate.of(2000, 1, 1), Gender.FEMALE, "jane@example.com", "testpassword123");
+        User newUser = new User("Jane", "Doe", LocalDate.of(2000, 1, 1), Gender.FEMALE, "jane@example.com", "testpassword123", false);
         
         // Mock service behavior to throw exception for an existing user
         doThrow(new IllegalArgumentException("Email is already in use."))
@@ -84,7 +84,7 @@ public class UserControllerTest {
     @Test
     void updateUser_ValidInput_ReturnsOk() throws Exception {
         // Arrange
-        User updatedUserDetails  = new User("Jane", "Doe", LocalDate.of(2000, 1, 1), Gender.FEMALE, "jane@example.com", "testpassword123");
+        User updatedUserDetails  = new User("Jane", "Doe", LocalDate.of(2000, 1, 1), Gender.FEMALE, "jane@example.com", "testpassword123", false);
         
         // Mock the service to do nothing (since the updateUser method is void)
         doNothing().when(userService).updateUser(anyInt(), any(User.class));
@@ -101,7 +101,7 @@ public class UserControllerTest {
     @Test
     void updateUser_InvalidBirthDate_ReturnsBadRequest() throws Exception {
         // Arrange
-        User updatedUserDetails  = new User("Jane", "Doe", LocalDate.of(2010, 1, 1), Gender.FEMALE, "jane@example.com", "testpassword123");
+        User updatedUserDetails  = new User("Jane", "Doe", LocalDate.of(2010, 1, 1), Gender.FEMALE, "jane@example.com", "testpassword123", false);
         
         // Mock the service to do nothing (since the updateUser method is void)
         doThrow(new IllegalArgumentException("Date of birth cannot be updated after initial registration."))
@@ -119,7 +119,7 @@ public class UserControllerTest {
     @Test
     void updateUser_InvalidEmail_ReturnsBadRequest() throws Exception {
         // Arrange
-        User updatedUserDetails  = new User("Jane", "Doe", LocalDate.of(2000, 1, 1), Gender.FEMALE, "jane@example.com", "testpassword123");
+        User updatedUserDetails  = new User("Jane", "Doe", LocalDate.of(2000, 1, 1), Gender.FEMALE, "jane@example.com", "testpassword123", false);
         
         // Mock the service to do nothing (since the updateUser method is void)
         doThrow(new IllegalArgumentException("Email cannot be updated after initial registration."))
@@ -139,7 +139,7 @@ public class UserControllerTest {
     @Test
     void deleteUser_ValidId_ReturnsOk() throws Exception {
         // Arrange
-        User deleteUserDetails  = new User("Jane", "Doe", LocalDate.of(2000, 1, 1), Gender.FEMALE, "jane@example.com", "testpassword123");
+        User deleteUserDetails  = new User("Jane", "Doe", LocalDate.of(2000, 1, 1), Gender.FEMALE, "jane@example.com", "testpassword123", false);
 
         // Mock the repository to return the user when findById is called
         when(userRepository.findById(1)).thenReturn(Optional.of(deleteUserDetails));
@@ -158,7 +158,7 @@ public class UserControllerTest {
     @Test
     void deleteUser_InvalidId_ReturnsBadRequest() throws Exception {
         // Arrange
-        User deleteUserDetails  = new User("Jane", "Doe", LocalDate.of(2000, 1, 1), Gender.FEMALE, "jane@example.com", "testpassword123");
+        User deleteUserDetails  = new User("Jane", "Doe", LocalDate.of(2000, 1, 1), Gender.FEMALE, "jane@example.com", "testpassword123", false);
 
         // Mock the repository to return the user when findById is called
         when(userRepository.findById(15)).thenReturn(Optional.empty());
@@ -191,7 +191,7 @@ public class UserControllerTest {
     @Test
     void getUser_FindById_ReturnsOk() throws Exception {
         // Arrange: Create a mock user
-        User mockUser = new User("Jane", "Doe", LocalDate.of(2000, 1, 1), Gender.FEMALE, "jane@example.com", "testpassword123");
+        User mockUser = new User("Jane", "Doe", LocalDate.of(2000, 1, 1), Gender.FEMALE, "jane@example.com", "testpassword123", false);
 
         // Mock the repository to return your mockUser when findById is called
         when(userRepository.findById(2)).thenReturn(Optional.of(mockUser));
@@ -222,7 +222,7 @@ public class UserControllerTest {
     @Test
     void getUser_FindByEmail_ReturnsOk() throws Exception {
         // Arrange: Create a mock user
-        User mockUser = new User("Jane", "Doe", LocalDate.of(2000, 1, 1), Gender.FEMALE, "jane@example.com", "testpassword123");
+        User mockUser = new User("Jane", "Doe", LocalDate.of(2000, 1, 1), Gender.FEMALE, "jane@example.com", "testpassword123", false);
 
         // Mock the repository to return your mockUser when findById is called
         when(userRepository.findByEmail("jane@example.com")).thenReturn(Optional.of(mockUser));

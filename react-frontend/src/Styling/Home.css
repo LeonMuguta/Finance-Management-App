@@ -1,7 +1,7 @@
 /* General container layout */
 .homeContainer {
     display: flex;
-    height: 130vh;
+    height: 100%;
 }
 
 /* Right-side content styling */
@@ -10,7 +10,7 @@
     padding: 30px;
     background-image: url('../Images/sky-blue-background.jpg');
     background-size: cover;
-    height: 130vh;
+    height: 100%;
     display: flex;
     flex-direction: column;
 }
@@ -57,21 +57,21 @@ h2 {
 }
 
 .summary p.totalRevenue {
-    color: rgb(33, 184, 33);
+    color: #21af21;
 }
 
 .summary p.totalExpense {
-    color: #c52323;
+    color: #d63f24;
 }
 
 /* Styling for positive net balance (same as totalRevenue) */
 .positiveBalance {
-    color: rgb(33, 184, 33);
+    color: #21af21;
 }
 
 /* Styling for negative net balance (same as totalExpense) */
 .negativeBalance {
-    color: #c52323;
+    color: #d63f24;
 }
 
 /* Styling for zero net balance */
@@ -115,11 +115,11 @@ h2 {
 }
 
 .goalsSummary .positiveAmount {
-    color: green;
+    color: #21af21;
 }
 
 .goalsSummary .negativeAmount {
-    color: red;
+    color: #d63f24;
 }
 
 /* Transactions and Monthly Statistic Styles */

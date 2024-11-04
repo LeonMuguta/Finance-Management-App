@@ -61,7 +61,7 @@ public class ExpenseControllerTest {
     @Test
     void createExpense_ValidInput_ReturnsOk() throws Exception {
         // Arrange
-        User mockUser = new User("Jane", "Doe", LocalDate.of(2000, 1, 1), Gender.FEMALE, "jane@example.com", "testpassword123");
+        User mockUser = new User("Jane", "Doe", LocalDate.of(2000, 1, 1), Gender.FEMALE, "jane@example.com", "testpassword123", false);
         
         // Manually set the ID for mockUser
         mockUser.setId(1);  // Set the user ID to 1
@@ -95,7 +95,7 @@ public class ExpenseControllerTest {
     @Test
     void createExpense_InvalidDate_ReturnsBadRequest() throws Exception {
         // Arrange
-        User mockUser = new User("Jane", "Doe", LocalDate.of(2000, 1, 1), Gender.FEMALE, "jane@example.com", "testpassword123");
+        User mockUser = new User("Jane", "Doe", LocalDate.of(2000, 1, 1), Gender.FEMALE, "jane@example.com", "testpassword123", false);
         
         // Manually set the ID for mockUser
         mockUser.setId(1);  // Set the user ID to 1
@@ -129,7 +129,7 @@ public class ExpenseControllerTest {
     @Test
     void createExpense_InvalidAmount_ReturnsBadRequest() throws Exception {
         // Arrange
-        User mockUser = new User("Jane", "Doe", LocalDate.of(2000, 1, 1), Gender.FEMALE, "jane@example.com", "testpassword123");
+        User mockUser = new User("Jane", "Doe", LocalDate.of(2000, 1, 1), Gender.FEMALE, "jane@example.com", "testpassword123", false);
         
         // Manually set the ID for mockUser
         mockUser.setId(1);  // Set the user ID to 1
@@ -164,7 +164,7 @@ public class ExpenseControllerTest {
     @Test
     void updateExpense_ValidInput_ReturnsOk() throws Exception {
         // Arrange
-        User mockUser = new User("Jane", "Doe", LocalDate.of(2000, 1, 1), Gender.FEMALE, "jane@example.com", "testpassword123");
+        User mockUser = new User("Jane", "Doe", LocalDate.of(2000, 1, 1), Gender.FEMALE, "jane@example.com", "testpassword123", false);
         
         // Manually set the ID for mockUser
         mockUser.setId(1);  // Set the user ID to 1
@@ -198,7 +198,7 @@ public class ExpenseControllerTest {
     @Test
     void updateExpense_InvalidDate_ReturnsBadRequest() throws Exception {
         // Arrange
-        User mockUser = new User("Jane", "Doe", LocalDate.of(2000, 1, 1), Gender.FEMALE, "jane@example.com", "testpassword123");
+        User mockUser = new User("Jane", "Doe", LocalDate.of(2000, 1, 1), Gender.FEMALE, "jane@example.com", "testpassword123", false);
         
         // Manually set the ID for mockUser
         mockUser.setId(1);  // Set the user ID to 1
@@ -233,7 +233,7 @@ public class ExpenseControllerTest {
     @Test
     void updateExpense_InvalidAmount_ReturnsBadRequest() throws Exception {
         // Arrange
-        User mockUser = new User("Jane", "Doe", LocalDate.of(2000, 1, 1), Gender.FEMALE, "jane@example.com", "testpassword123");
+        User mockUser = new User("Jane", "Doe", LocalDate.of(2000, 1, 1), Gender.FEMALE, "jane@example.com", "testpassword123", false);
         
         // Manually set the ID for mockUser
         mockUser.setId(1);  // Set the user ID to 1
@@ -269,7 +269,7 @@ public class ExpenseControllerTest {
     @Test
     void deleteExpense_ValidId_ReturnsOk() throws Exception {
         // Arrange
-        User mockUser = new User("Jane", "Doe", LocalDate.of(2000, 1, 1), Gender.FEMALE, "jane@example.com", "testpassword123");
+        User mockUser = new User("Jane", "Doe", LocalDate.of(2000, 1, 1), Gender.FEMALE, "jane@example.com", "testpassword123", false);
         
         // Manually set the ID for mockUser
         mockUser.setId(1);  // Set the user ID to 1
@@ -294,7 +294,7 @@ public class ExpenseControllerTest {
     @Test
     void deleteExpense_InvalidId_ReturnsNotFound() throws Exception {
         // Arrange
-        User mockUser = new User("Jane", "Doe", LocalDate.of(2000, 1, 1), Gender.FEMALE, "jane@example.com", "testpassword123");
+        User mockUser = new User("Jane", "Doe", LocalDate.of(2000, 1, 1), Gender.FEMALE, "jane@example.com", "testpassword123", false);
         
         // Manually set the ID for mockUser
         mockUser.setId(1);  // Set the user ID to 1
@@ -332,7 +332,7 @@ public class ExpenseControllerTest {
     @Test
     void getExpenses_FindByUserID_ReturnsOk() throws Exception {
         // Arrange
-        User mockUser = new User("Jane", "Doe", LocalDate.of(2000, 1, 1), Gender.FEMALE, "jane@example.com", "testpassword123");
+        User mockUser = new User("Jane", "Doe", LocalDate.of(2000, 1, 1), Gender.FEMALE, "jane@example.com", "testpassword123", false);
         
         // Manually set the ID for mockUser
         mockUser.setId(1);  // Set the user ID to 1

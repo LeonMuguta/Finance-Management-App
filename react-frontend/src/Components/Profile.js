@@ -14,7 +14,8 @@ function Profile() {
         surname: '',
         email: '',
         gender: '',
-        dateOfBirth: ''
+        dateOfBirth: '',
+        twoFactorAuth: false
     });
     const [errorMessage, setErrorMessage] = useState('');
     const [showSuccessMessage, setShowSuccessMessage] = useState(false);
@@ -44,7 +45,8 @@ function Profile() {
                     surname: response.data.surname,
                     email: response.data.email,
                     gender: response.data.gender,
-                    dateOfBirth: response.data.dateOfBirth
+                    dateOfBirth: response.data.dateOfBirth,
+                    twoFactorAuth: response.data.twoFactorAuth
                 });
             } catch (error) {
                 console.error('Error fetching user data: ', error);
@@ -169,6 +171,7 @@ function Profile() {
                                     <p><strong>Email:</strong> {user.email}</p>
                                     <p><strong>Gender:</strong> {user.gender}</p>
                                     <p><strong>Date of Birth:</strong> {new Date(user.dateOfBirth).toLocaleDateString()}</p>
+                                    <p><strong>Two-Factor Authentication:</strong> {user.twoFactorAuth ? 'Enabled' : 'Disabled'}</p>
                                     <button className="edit" onClick={() => setEditMode(true)}>Edit</button>
                                     <button className="changePassword" onClick={() => setShowChangePasswordForm(true)}>Change Password</button>
                                     <button className="deleteAccount" onClick={handleDeleteAccount}>Delete Account</button>
@@ -223,6 +226,18 @@ function Profile() {
                                             value={formData.dateOfBirth}
                                             readOnly
                                         />
+                                    </label>
+                                    <label>
+                                        Enable Two-Factor Authentication?
+                                        <select
+                                            name="twoFactorAuth" 
+                                            value={formData.twoFactorAuth} 
+                                            onChange={handleInputChange}
+                                            required
+                                            >
+                                            <option value="true">Yes</option>
+                                            <option value="false">No</option>
+                                        </select>
                                     </label>
                                     {/* <label>
                                         Password:

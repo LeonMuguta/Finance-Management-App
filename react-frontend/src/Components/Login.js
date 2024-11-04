@@ -21,22 +21,33 @@ function Login() {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+        setError('');
         try {
             const response = await axios.post('http://localhost:8080/api/auth/login', formData);
             if (response.status === 200) {
-                setSuccess('Sending verification code to your email');
-
                 // Assuming the response contains the user's first name in the data
-                const { firstName, surname, id } = response.data;
-                // Store the user's first name in localStorage
+                const { firstName, surname, id, twoFactorAuth } = response.data;
                 localStorage.setItem('firstName', firstName);
                 localStorage.setItem('surname', surname);
-                localStorage.setItem('id', id);                
+                localStorage.setItem('id', id);
+
+                if (twoFactorAuth) {
+                    setSuccess('Sending verification code to your email');
+                } else {
+                    setSuccess('Welcome!');
+                }
 
                 // Delay navigation to display the success message
-                setTimeout(() => {
-                    navigate('/verify');
-                }, 2000);
+                if (twoFactorAuth) {
+                    setTimeout(() => {
+                        navigate('/verify');
+                    }, 2000);
+                } else {
+                    setTimeout(() => {
+                        navigate('/home');
+                    }, 2000); 
+                }
+                
             }
         } catch (err) {
             // Handle error response
@@ -46,6 +57,7 @@ function Login() {
             } else {
                 // Network error or other errors
                 setError('An error occured. Please try again later.');
+                console.log(err);
             }
         }
     };

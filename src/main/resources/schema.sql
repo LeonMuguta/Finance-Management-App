@@ -7,6 +7,7 @@ CREATE TABLE IF NOT EXISTS Users (
     gender varchar(10) NOT NULL,
     email varchar(50) NOT NULL UNIQUE,
     password varchar(250) NOT NULL,
+    two_factor_auth BOOLEAN NOT NULL DEFAULT FALSE,
     PRIMARY KEY (id)
 );
 

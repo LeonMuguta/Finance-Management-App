@@ -36,25 +36,29 @@ public class LoginController {
         if (userOptional.isPresent()) {
             User user = userOptional.get();
 
-            // Generate verification code and set expiration time
-            String verificationCode = VerificationCodeGenerator.generateVerificationCode();
-            VerifyCode codeEntity = new VerifyCode(
-                verificationCode,
-                LocalDateTime.now().plusMinutes(5), // Code is valid for 5 minutes
-                user
-            );
-            verifyCodeRepository.save(codeEntity);
+            // Send email if user has 2FA enabled
+            if (user.getTwoFactorAuth()) {
+                // Generate verification code and set expiration time
+                String verificationCode = VerificationCodeGenerator.generateVerificationCode();
+                VerifyCode codeEntity = new VerifyCode(
+                    verificationCode,
+                    LocalDateTime.now().plusMinutes(5), // Code is valid for 5 minutes
+                    user
+                );
+                verifyCodeRepository.save(codeEntity);
 
-            // Send the verification code to the user's email
-            emailService.sendVerificationCode(email, verificationCode);
+                // Send the verification code to the user's email
+                emailService.sendVerificationCode(email, verificationCode);
+            }
             
             // Returning user's details along with the success message
             Map<String, Object> response = new HashMap<>();
             response.put("message", "Verification code sent to your email. Enter the code to complete login.");
             response.put("id", user.getId());
             response.put("firstName", user.getFirstName());
-            response.put("surname", user.getSurname());  // Optional, if needed
+            response.put("surname", user.getSurname());
             response.put("email", user.getEmail());
+            response.put("twoFactorAuth", user.getTwoFactorAuth());
 
             return ResponseEntity.ok(response);
         } else {

@@ -49,7 +49,8 @@ public class UserService {
             user.getDateOfBirth(),
             user.getGender(),
             user.getEmail(),
-            passwordEncoder.encode(user.getPassword())
+            passwordEncoder.encode(user.getPassword()),
+            user.getTwoFactorAuth()
         );
         return userRepository.save(newUser);
     }
@@ -86,6 +87,8 @@ public class UserService {
             if (userDetails.getPassword() != null && !userDetails.getPassword().isEmpty()) {
                 user.setPassword(passwordEncoder.encode(userDetails.getPassword())); // Password should be encoded
             }
+
+            user.setTwoFactorAuth(userDetails.getTwoFactorAuth());
             
             userRepository.save(user);
             

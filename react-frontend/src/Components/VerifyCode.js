@@ -45,10 +45,11 @@ function VerifyCode() {
                     value={code}
                     onChange={handleCodeChange}
                     required
+                    disabled={isVerified}
                 />
                 {!isVerified && <button type="submit" className="verifyBtn">Submit</button>}
                 {message && (
-                    <p style={{ color: isVerified ? "green" : "red" }}>{message}</p>
+                    <p style={{ color: isVerified ? "green" : "red", fontWeight: "bold", fontSize: "14px", textAlign: "center" }}>{message}</p>
                 )}
             </form>
         </div>

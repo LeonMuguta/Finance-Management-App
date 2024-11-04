@@ -43,6 +43,9 @@ public class User {
     @Column(nullable = false)
     private String password;
 
+    @Column(name = "two_factor_auth", nullable = false)
+    private boolean twoFactorAuth;
+
     public User() {}
 
     @JsonCreator
@@ -52,7 +55,8 @@ public class User {
         @JsonProperty("dateOfBirth") LocalDate dateOfBirth,
         @JsonProperty("gender") Gender gender,
         @JsonProperty("email") String email,
-        @JsonProperty("password") String password
+        @JsonProperty("password") String password,
+        @JsonProperty("twoFactorAuth") boolean twoFactorAuth
     ) {
         this.firstName = firstName;
         this.surname = surname;
@@ -60,6 +64,7 @@ public class User {
         this.gender = gender;
         this.email = email;
         this.password = password;
+        this.twoFactorAuth = twoFactorAuth;
 
         // Only enforce password requirement if it's a new user creation (password is required)
         if (password != null && !password.isEmpty()) {
@@ -99,6 +104,10 @@ public class User {
         return password;
     }
 
+    public boolean getTwoFactorAuth() {
+        return twoFactorAuth;
+    }
+
     // Setters
     public void setId(Integer id) {
         this.id = id;
@@ -126,6 +135,10 @@ public class User {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public void setTwoFactorAuth(boolean twoFactorAuth) {
+        this.twoFactorAuth = twoFactorAuth;
     }
 
 }

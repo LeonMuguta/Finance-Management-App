@@ -36,9 +36,9 @@ function SignUp() {
         const response = await axios.post('http://localhost:8080/users', formData);
         setSuccessMessage(response.data);
 
-        // Redirect to the success page after 5 seconds
+        // Redirect to the home page after 5 seconds
         setTimeout(() => {
-            navigate('/success');
+            navigate('/home');
         }, 5000);
     } catch (error) {
         if (error.response) {

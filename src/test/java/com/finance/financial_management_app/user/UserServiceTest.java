@@ -33,12 +33,12 @@ public class UserServiceTest {
     @Test
     void registerUser_UserAlreadyExists_ThrowsException() {
         // Arrange
-        User existingUser = new User("John", "Doe", LocalDate.of(2000, 1, 1), Gender.MALE, "johndoe@gmail.com", "testpassword123");
+        User existingUser = new User("John", "Doe", LocalDate.of(2000, 1, 1), Gender.MALE, "johndoe@gmail.com", "testpassword123", false);
         when(userRepository.findByEmail("johndoe@gmail.com")).thenReturn(Optional.of(existingUser));
 
         // Act & Assert
         IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> {
-            userService.registerUser(new User("John", "Doe", LocalDate.of(2000, 1, 1), Gender.MALE, "johndoe@gmail.com", "testpassword123"));
+            userService.registerUser(new User("John", "Doe", LocalDate.of(2000, 1, 1), Gender.MALE, "johndoe@gmail.com", "testpassword123", false));
         });
 
         assertEquals("Email is already in use.", exception.getMessage());
@@ -47,7 +47,7 @@ public class UserServiceTest {
     @Test
     void registerUser_NewUser_SuccessfullyRegisters() {
         // Arrange
-        User newUser = new User("Jane", "Doe", LocalDate.of(2000, 1, 1), Gender.FEMALE, "janedoe@gmail.com", "testpassword123");
+        User newUser = new User("Jane", "Doe", LocalDate.of(2000, 1, 1), Gender.FEMALE, "janedoe@gmail.com", "testpassword123", false);
         when(userRepository.findByEmail("janedoe@gmail.com")).thenReturn(Optional.empty());
         when(passwordEncoder.encode(anyString())).thenReturn("encodedPassword");
         when(userRepository.save(any(User.class))).thenReturn(newUser); // Match any User object
