@@ -1,0 +1,91 @@
+/* Container for Reports page */
+.reportContainer {
+    display: flex;
+    min-height: 100vh;
+    width: auto;
+}
+
+/* Main content next to the sidebar */
+.reportContent {
+    flex: 1;
+    padding: 20px;
+    background-image: url('../Images/sky-blue-background.jpg');
+    background-size: cover;
+    height: auto;
+}
+
+.reportContent h2 {
+    font-size: 28px;
+    margin-bottom: 20px;
+}
+
+.reportDetailsContainer {
+    background-color: #fff;
+    box-shadow: rgba(0, 0, 0, 0.3) 0px 19px 38px, rgba(0, 0, 0, 0.22) 0px 15px 12px;
+    padding: 20px;
+    border-radius: 10px;
+}
+
+.formGroup {
+    font-size: 18px;
+    margin: 10px 0;
+}
+
+.formGroup label {
+    margin-right: 10px;
+}
+
+.formGroup input,
+.formGroup select {
+    width: 30%;
+    padding: 10px;
+    margin-top: 5px;
+    border-radius: 5px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    font-size: 16px;
+    background-color: #f8f8f8;
+    transition: border-color 0.3s ease;
+}
+
+.downloadButton {
+    padding: 10px 20px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.downloadButton:hover {
+    background-color: #45a049;
+}
+
+/* New media query for screen width 650px or below */
+@media (max-width: 650px) {
+    .reportContainer {
+        flex-direction: column; /* Stack children vertically */
+        height: 100vh;
+    }
+
+    .reportContent {
+        width: 100%; /* Ensure content takes full width */
+    }
+
+    .formGroup input,
+    .formGroup select {
+        width: 100%;
+        padding: 10px;
+        margin-top: 5px;
+        border-radius: 5px;
+        margin-bottom: 15px;
+        border: 1px solid #ccc;
+        font-size: 16px;
+        background-color: #f8f8f8;
+        transition: border-color 0.3s ease;
+    }
+
+    /* button {
+        margin-bottom: 10px;
+    } */
+}

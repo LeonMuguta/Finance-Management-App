@@ -11,6 +11,7 @@ import Revenues from './Components/Revenues';
 import Expenses from './Components/Expenses';
 import Profile from './Components/Profile';
 import Budget from './Components/BudgetGoals';
+import Report from './Components/Report';
 
 function App() {
   return (
@@ -26,6 +27,7 @@ function App() {
         <Route path="/expenses" element={ <Expenses /> } />
         <Route path="/profile" element={ <Profile /> } />
         <Route path="/budget" element={ <Budget /> } />
+        <Route path="/reports" element={ <Report /> } />
       </Routes>
     </Router>
   );

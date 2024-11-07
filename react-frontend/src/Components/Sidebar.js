@@ -34,6 +34,12 @@ function Sidebar() {
                     </NavLink>
                 </li>
                 <li className="menuItem">
+                    <NavLink to="/reports" activeClassName="active">
+                        <i className="fa fa-table" aria-hidden="true"></i>
+                        <span>Reports</span>
+                    </NavLink>
+                </li>
+                <li className="menuItem">
                     <NavLink to="/profile" activeClassName="active">
                         <i className="fa fa-user" aria-hidden="true"></i>
                         <span>Profile</span>

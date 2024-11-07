@@ -21,6 +21,7 @@ function TopNav() {
                     <Link to="/revenues" className="menuItem">Revenues</Link>
                     <Link to="/expenses" className="menuItem">Expenses</Link>
                     <Link to="/budget" className="menuItem">Budget Goals</Link>
+                    <Link to="/reports" className="menuItem">Reports</Link>
                     <Link to="/profile" className="menuItem">Profile</Link>
                     <Link to="/" className="menuItem">Log Out</Link>
                 </div>

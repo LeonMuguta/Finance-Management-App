@@ -11,14 +11,14 @@ import '../Styling/Revenues.css';
 ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend);
 
 function Revenues() {
-    const [revenues, setRevenues] = useState([]); // State to hold fetched revenue data
-    const [userId, setUserId] = useState(null); // State to hold logged-in user ID
-    const [isModalOpen, setIsModalOpen] = useState(false); // State to control modal visibility
-    const [selectedRevenues, setSelectedRevenues] = useState([]); // State to hold selected revenue IDs
-    const [editingRevenue, setEditingRevenue] = useState(null); // State to hold revenue data for editing
-    const [showSuccessMessage, setShowSuccessMessage] = useState(false); // State to control the success message visibility
+    const [revenues, setRevenues] = useState([]);
+    const [userId, setUserId] = useState(null); 
+    const [isModalOpen, setIsModalOpen] = useState(false);
+    const [selectedRevenues, setSelectedRevenues] = useState([]);
+    const [editingRevenue, setEditingRevenue] = useState(null);
+    const [showSuccessMessage, setShowSuccessMessage] = useState(false);
     const [windowWidth, setWindowWidth] = React.useState(window.innerWidth);
-    const [expandedMonths, setExpandedMonths] = useState({}); // Track expanded/collapsed months
+    const [expandedMonths, setExpandedMonths] = useState({});
 
     // Fetch user ID from localStorage when the component mounts
     useEffect(() => {
