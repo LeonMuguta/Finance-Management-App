@@ -1,9 +1,16 @@
 import React, { useState } from 'react';
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import '../Styling/TopNav.css';
 
-function TopNav() {
+function TopNav({ setIsAuthenticated }) {
     const [isOpen, setIsOpen] = useState(false);
+    const navigate = useNavigate();
+
+    const handleLogout = () => {
+        setIsAuthenticated(false);
+        console.log('Authentication => False');
+        navigate('/');
+    };
 
     const toggleMenu = () => {
         setIsOpen(!isOpen);
@@ -23,7 +30,7 @@ function TopNav() {
                     <Link to="/budget" className="menuItem">Budget Goals</Link>
                     <Link to="/reports" className="menuItem">Reports</Link>
                     <Link to="/profile" className="menuItem">Profile</Link>
-                    <Link to="/" className="menuItem">Log Out</Link>
+                    <span onClick={handleLogout} className="menuItem">Log Out</span>
                 </div>
             )}
         </div>

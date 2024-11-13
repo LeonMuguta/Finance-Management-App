@@ -107,3 +107,12 @@
         justify-content: center; /* Center the buttons */
     }
 }
+
+@media (max-width: 600px) {
+    .welcomeNav {
+        height: 100%;
+        padding: 10px; /* Optional: increase padding for better spacing */
+        align-items: center; /* Center content in smaller width */
+        text-align: center; /* Center the text for smaller screens */
+    }
+}

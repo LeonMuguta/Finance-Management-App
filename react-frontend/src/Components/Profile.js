@@ -5,7 +5,7 @@ import Sidebar from './Sidebar';
 import TopNav from './TopNav';
 import '../Styling/Profile.css';
 
-function Profile() {
+function Profile({ setIsAuthenticated }) {
     const [user, setUser] = useState(null);
     // States for a user changing their password
     const [editMode, setEditMode] = useState(false);
@@ -156,7 +156,7 @@ function Profile() {
     return (
         <div className="profileContainer">
             {/* Conditional rendering of Sidebar or TopNav based on window width */}
-            {windowWidth > 650 ? <Sidebar /> : <TopNav />}
+            {windowWidth > 650 ? <Sidebar setIsAuthenticated={setIsAuthenticated} /> : <TopNav setIsAuthenticated={setIsAuthenticated} />}
 
             <div className="profileContent">
                 <h2>User Profile</h2>

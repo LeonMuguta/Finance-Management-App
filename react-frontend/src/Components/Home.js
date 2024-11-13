@@ -9,7 +9,7 @@ import '../Styling/Home.css';
 // Register the necessary Chart.js components
 Chart.register(ArcElement, Tooltip, Legend);
 
-function Home() {
+function Home({ setIsAuthenticated }) {
     const [firstName, setFirstName] = useState('');
     const [surname, setSurname] = useState('');
     const [totalRevenue, setTotalRevenue] = useState(0);
@@ -117,7 +117,7 @@ function Home() {
                     setTransactions(sortedTransactions);
 
                 } catch (error) {
-                    console.error('Error fetching data:', error);
+                    console.error('Error fetching transactions:', error);
                 }
             }
         };
@@ -140,7 +140,7 @@ function Home() {
 
                     setGoalData(filteredGoals[0]);
                 } catch (error) {
-                    console.error("Error fetching goal data: ", error);
+                    console.error("Error fetching budget goals: ", error);
                 }
             }
         };
@@ -160,7 +160,7 @@ function Home() {
     return (
         <div className="homeContainer">
             {/* Conditional rendering of Sidebar or TopNav */}
-            {windowWidth > 650 ? <Sidebar /> : <TopNav />}
+            {windowWidth > 650 ? <Sidebar setIsAuthenticated={setIsAuthenticated} /> : <TopNav setIsAuthenticated={setIsAuthenticated} />}
 
             {/* Right Content Area */}
             <div className="content">

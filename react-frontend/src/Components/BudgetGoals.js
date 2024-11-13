@@ -5,7 +5,7 @@ import TopNav from "./TopNav";
 import AddBudgetModal from "./AddBudgetModal";
 import "../Styling/BudgetGoals.css";
 
-function Budget() {
+function Budget({ setIsAuthenticated }) {
     const [budgets, setBudgets] = useState([]);
     const [userId, setUserId] = useState(null);
     const [isModalOpen, setIsModalOpen] = useState(false); // State to control modal visibility
@@ -133,7 +133,7 @@ function Budget() {
     return (
         <div className="budget-container">
             {/* Conditional rendering of Sidebar or TopNav */}
-            {windowWidth > 650 ? <Sidebar /> : <TopNav />}
+            {windowWidth > 650 ? <Sidebar setIsAuthenticated={setIsAuthenticated} /> : <TopNav setIsAuthenticated={setIsAuthenticated} />}
 
             {/* Right Content Area */}
             <div className="budget-content">

@@ -85,13 +85,14 @@
     transition: background-color 0.3s ease, color 0.3s ease;
 }
 
-.logoutSection a {
+.logoutSection .click {
     text-decoration: none; /* Removes the underline */
     color: red; /* Changes the text color to red */
     font-size: 18px;
     display: flex;
     align-items: center;
     padding: 10px 20px;
+    cursor: pointer;
 }
 
 .logoutSection i {

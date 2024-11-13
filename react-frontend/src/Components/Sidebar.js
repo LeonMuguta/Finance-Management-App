@@ -1,8 +1,16 @@
 import React from 'react';
-import { Link, NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import '../Styling/Sidebar.css';
 
-function Sidebar() {
+function Sidebar({ setIsAuthenticated }) {
+    const navigate = useNavigate();
+
+    const handleLogout = () => {
+        setIsAuthenticated(false);
+        console.log('Authentication => False');
+        navigate('/');
+    };
+
     return (
         <div className="sidebar">
             <h1 className="appName">PerFinancial</h1>
@@ -48,10 +56,10 @@ function Sidebar() {
             </ul>
 
             <div className="logoutSection">
-                <Link to="/">
+                <span className="click" onClick={handleLogout}>
                     <i className="fa fa-sign-out" aria-hidden="true"></i>
                     <span>Log Out</span>
-                </Link>
+                </span>
             </div>
         </div>
     );

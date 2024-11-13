@@ -3,7 +3,7 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import '../Styling/VerifyCode.css';
 
-function VerifyCode() {
+function VerifyCode({ setIsAuthenticated }) {
     const [code, setCode] = useState("");
     const [message, setMessage] = useState("");
     const [isVerified, setIsVerified] = useState(false);
@@ -26,7 +26,10 @@ function VerifyCode() {
             if (response.status === 200) {
                 setMessage("Success!");
                 setIsVerified(true);
-                setTimeout(() => navigate("/home"), 5000);
+                setIsAuthenticated(true);
+                setTimeout(() => {
+                    navigate("/home")
+                }, 5000);
             }
         } catch (error) {
             setMessage("Invalid code, please try again.");

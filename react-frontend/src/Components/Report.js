@@ -4,7 +4,7 @@ import Sidebar from "./Sidebar";
 import TopNav from "./TopNav";
 import '../Styling/Report.css';
 
-function Report() {
+function Report({ setIsAuthenticated }) {
     const [year, setYear] = useState(new Date().getFullYear());
     const [month, setMonth] = useState(new Date().getMonth() + 1);
     const [windowWidth, setWindowWidth] = React.useState(window.innerWidth);
@@ -47,7 +47,7 @@ function Report() {
     return (
         <div className="reportContainer">
             {/* Conditional rendering of Sidebar or TopNav */}
-            {windowWidth > 650 ? <Sidebar /> : <TopNav />}
+            {windowWidth > 650 ? <Sidebar setIsAuthenticated={setIsAuthenticated} /> : <TopNav setIsAuthenticated={setIsAuthenticated} />}
 
             {/* Right Content Area */}
             <div className="reportContent">

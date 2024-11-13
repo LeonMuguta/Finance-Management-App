@@ -3,7 +3,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import '../Styling/Login.css';
 
-function Login() {
+function Login({ setIsAuthenticated }) {
     const [formData, setFormData] = useState({
         email: '',
         password: ''
@@ -43,6 +43,7 @@ function Login() {
                         navigate('/verify');
                     }, 2000);
                 } else {
+                    setIsAuthenticated(true);
                     setTimeout(() => {
                         navigate('/home');
                     }, 2000); 

@@ -10,7 +10,7 @@ import '../Styling/Expenses.css';
 // Register necessary chart components
 ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend);
 
-function Expenses() {
+function Expenses({ setIsAuthenticated }) {
     const [expenses, setExpenses] = useState([]); // State to hold fetched expense data
     const [userId, setUserId] = useState(null); // State to hold logged-in user ID
     const [isModalOpen, setIsModalOpen] = useState(false); // State to control modal visibility
@@ -211,7 +211,7 @@ function Expenses() {
     return (
         <div className="expensesContainer">
             {/* Conditional rendering of Sidebar or TopNav */}
-            {windowWidth > 650 ? <Sidebar /> : <TopNav />}
+            {windowWidth > 650 ? <Sidebar setIsAuthenticated={setIsAuthenticated} /> : <TopNav setIsAuthenticated={setIsAuthenticated} />}
 
             {/* Right Content Area */}
             <div className="expensesContent">

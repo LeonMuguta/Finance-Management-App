@@ -10,7 +10,7 @@ import '../Styling/Revenues.css';
 // Register necessary chart components
 ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend);
 
-function Revenues() {
+function Revenues({ setIsAuthenticated }) {
     const [revenues, setRevenues] = useState([]);
     const [userId, setUserId] = useState(null); 
     const [isModalOpen, setIsModalOpen] = useState(false);
@@ -211,7 +211,7 @@ function Revenues() {
     return (
         <div className="revenuesContainer">
             {/* Conditional rendering of Sidebar or TopNav */}
-            {windowWidth > 650 ? <Sidebar /> : <TopNav />}
+            {windowWidth > 650 ? <Sidebar setIsAuthenticated={setIsAuthenticated} /> : <TopNav setIsAuthenticated={setIsAuthenticated} />}
 
             {/* Right Content Area */}
             <div className="revenuesContent">
