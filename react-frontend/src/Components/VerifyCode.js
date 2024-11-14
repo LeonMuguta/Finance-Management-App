@@ -28,6 +28,7 @@ function VerifyCode({ setIsAuthenticated }) {
                 setIsVerified(true);
                 setIsAuthenticated(true);
                 setTimeout(() => {
+                    localStorage.setItem('isAuthenticated', 'true');
                     navigate("/home")
                 }, 5000);
             }

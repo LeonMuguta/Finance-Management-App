@@ -23,14 +23,14 @@ function Login({ setIsAuthenticated }) {
         e.preventDefault();
         setError('');
         try {
-            const response = await axios.post('http://localhost:8080/api/auth/login', formData);
+            const response = await axios.post('http://localhost:8080/api/auth/login', formData, { withCredentials: true });
             if (response.status === 200) {
                 // Assuming the response contains the user's first name in the data
                 const { firstName, surname, id, twoFactorAuth } = response.data;
                 localStorage.setItem('firstName', firstName);
                 localStorage.setItem('surname', surname);
                 localStorage.setItem('id', id);
-
+                
                 if (twoFactorAuth) {
                     setSuccess('Sending verification code to your email');
                 } else {
@@ -45,6 +45,7 @@ function Login({ setIsAuthenticated }) {
                 } else {
                     setIsAuthenticated(true);
                     setTimeout(() => {
+                        localStorage.setItem('isAuthenticated', 'true');
                         navigate('/home');
                     }, 2000); 
                 }

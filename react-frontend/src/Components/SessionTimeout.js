@@ -4,8 +4,8 @@ import '../Styling/SessionTimeout.css';
 
 const SessionTimeout = ({ setIsAuthenticated }) => {
     const [timeLeft, setTimeLeft] = useState(null); // 3 minutes countdown (180 seconds)
-    const sessionTimeout = 4 * 60 * 1000; // 4 minutes in milliseconds
-    const warningTime = 1 * 60 * 1000; // 1 minutes in milliseconds (3 minutes left)
+    const sessionTimeout = 5 * 60 * 1000; // 5 minutes in milliseconds
+    const warningTime = 2 * 60 * 1000; // 2 minutes in milliseconds (3 minutes left)
     const navigate = useNavigate();
 
     const warningTimerRef = useRef(null);
@@ -31,6 +31,12 @@ const SessionTimeout = ({ setIsAuthenticated }) => {
             if (countdown <= 0) {
                 clearInterval(countdownTimerRef.current);
                 setIsAuthenticated(false);
+                console.log('Authentication => False');
+
+                localStorage.clear();
+                sessionStorage.clear();
+                deleteSessionCookie();
+
                 navigate('/'); // Redirect to welcome after timeout
             }
         }, 1000);
@@ -50,6 +56,12 @@ const SessionTimeout = ({ setIsAuthenticated }) => {
         sessionTimerRef.current = setTimeout(() => {
             alert("Session expired. Redirecting to welcome page.");
             setIsAuthenticated(false);
+            console.log('Authentication => False');
+
+            localStorage.clear();
+            sessionStorage.clear();
+            deleteSessionCookie();
+
             navigate('/');
         }, sessionTimeout);
     }, [navigate, sessionTimeout, warningTime, startCountdown, setIsAuthenticated]);
@@ -72,6 +84,16 @@ const SessionTimeout = ({ setIsAuthenticated }) => {
             window.removeEventListener('keydown', resetOnActivity);
         };
     }, [resetTimers]);
+
+    const deleteSessionCookie = () => {
+        // Delete the "SESSION" cookie for path "/"
+        document.cookie = "SESSION=;expires=Thu, 01 Jan 1970 00:00:00 UTC;path=/;SameSite=Lax;domain=localhost";
+        
+        // Optionally, you can add the "Secure" flag if the cookie was set with it
+        document.cookie = "SESSION=;expires=Thu, 01 Jan 1970 00:00:00 UTC;path=/;Secure;SameSite=Lax;domain=localhost";
+    
+        console.log('SESSION cookie deleted!');
+    };
 
     return (
         <div>

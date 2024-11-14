@@ -88,6 +88,10 @@ function Profile({ setIsAuthenticated }) {
             setTimeout(() => {
                 setShowSuccessMessage(false);
             }, 3000);
+
+            setTimeout(() => {
+                window.location.reload();
+            }, 3000);            
         } catch (error) {
             // Handle error response
             if (error) {
@@ -239,21 +243,12 @@ function Profile({ setIsAuthenticated }) {
                                             <option value="false">No</option>
                                         </select>
                                     </label>
-                                    {/* <label>
-                                        Password:
-                                        <input
-                                            type="password"
-                                            name="password"
-                                            value={formData.password}
-                                            onChange={handleInputChange}
-                                        />
-                                    </label> */}
 
                                     {/* Display error messages */}
                                     {errorMessage && <p className="error-message">{errorMessage}</p>}
 
-                                    <button className="save" onClick={handleSave}>Save</button> {/* Save button */}
-                                    <button className="cancel" onClick={() => setEditMode(false)}>Cancel</button> {/* Cancel button */}
+                                    <button className="save" onClick={handleSave}>Save</button>
+                                    <button className="cancel" onClick={() => setEditMode(false)}>Cancel</button>
                                 </div>
                             ) : (
                                 <div className="changePasswordForm">

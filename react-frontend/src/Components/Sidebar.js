@@ -1,14 +1,38 @@
 import React from 'react';
 import { NavLink, useNavigate } from "react-router-dom";
+import axios from 'axios';
 import '../Styling/Sidebar.css';
 
 function Sidebar({ setIsAuthenticated }) {
     const navigate = useNavigate();
 
-    const handleLogout = () => {
-        setIsAuthenticated(false);
-        console.log('Authentication => False');
-        navigate('/');
+    const deleteSessionCookie = () => {
+        // Delete the "SESSION" cookie for path "/"
+        document.cookie = "SESSION=;expires=Thu, 01 Jan 1970 00:00:00 UTC;path=/;SameSite=Lax;domain=localhost";
+        
+        // Optionally, you can add the "Secure" flag if the cookie was set with it
+        document.cookie = "SESSION=;expires=Thu, 01 Jan 1970 00:00:00 UTC;path=/;Secure;SameSite=Lax;domain=localhost";
+    
+        console.log('SESSION cookie deleted!');
+    };
+
+    const handleLogout = async () => {
+        try {
+            const response = await axios.post('http://localhost:8080/api/auth/logout');
+
+            if (response.status === 200) {
+                setIsAuthenticated(false);
+                console.log('Authentication => False');
+
+                localStorage.clear();
+                sessionStorage.clear();
+                deleteSessionCookie();
+
+                navigate('/');
+            }
+        } catch (error) {
+            console.error('Logout error:', error);
+        }
     };
 
     return (
