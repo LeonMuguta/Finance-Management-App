@@ -6,31 +6,25 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
-// import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 
-// import static org.springframework.security.config.Customizer.withDefaults;
+import static org.springframework.security.config.Customizer.withDefaults;
 
 @Configuration
 public class SecurityConfig {
-
-    // private final UserDetailsService userDetailsService;
-
-    // public SecurityConfig(UserDetailsService userDetailsService) {
-    //     this.userDetailsService = userDetailsService;
-    // }
 
     @SuppressWarnings("deprecation")
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
-            .csrf(csrf -> csrf.disable()) // Disable CSRF for development
-            .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.IF_REQUIRED))
-            .authorizeRequests(requests -> requests
-                            .anyRequest().permitAll() // Allow access to all paths without authentication
-            );
+                .csrf(csrf -> csrf.disable()) // Disable CSRF for development
+                .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.IF_REQUIRED))
+                .authorizeRequests(requests -> requests
+                                .anyRequest().authenticated() // Require user authentication
+                )
+                .httpBasic(withDefaults());
         return http.build();
     }
 
