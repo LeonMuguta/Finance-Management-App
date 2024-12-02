@@ -48,6 +48,12 @@ public class ReportService {
             Font headerFont = workbook.createFont();
             headerFont.setBold(true);
 
+            Font greenFont = workbook.createFont();
+            greenFont.setColor(IndexedColors.GREEN.getIndex());
+
+            Font redFont = workbook.createFont();
+            redFont.setColor(IndexedColors.RED.getIndex());
+
             // Define a style for headers and cells with borders
             CellStyle headerStyle = workbook.createCellStyle();
             headerStyle.setBorderTop(BorderStyle.THIN);
@@ -56,6 +62,14 @@ public class ReportService {
             headerStyle.setBorderRight(BorderStyle.THIN);
             headerStyle.setAlignment(HorizontalAlignment.CENTER);
             headerStyle.setFont(headerFont);
+
+            CellStyle greenCellStyle = workbook.createCellStyle();
+            greenCellStyle.cloneStyleFrom(headerStyle); // Inherit borders and alignment
+            greenCellStyle.setFont(greenFont);
+
+            CellStyle redCellStyle = workbook.createCellStyle();
+            redCellStyle.cloneStyleFrom(headerStyle);
+            redCellStyle.setFont(redFont);
 
             CellStyle cellStyle = workbook.createCellStyle();
             cellStyle.setBorderTop(BorderStyle.THIN);
@@ -83,7 +97,7 @@ public class ReportService {
                 Row row = sheet.createRow(rowIdx++);
                 createStyledCell(row, 0, "Revenue", cellStyle);
                 createStyledCell(row, 1, revenue.getDate().toString(), cellStyle);
-                createStyledCell(row, 2, "R" + df.format(revenue.getAmount().doubleValue()), cellStyle);
+                createStyledCell(row, 2, "R" + df.format(revenue.getAmount().doubleValue()), greenCellStyle);
                 createStyledCell(row, 3, revenue.getCategory(), cellStyle);
                 createStyledCell(row, 4, revenue.getDescription(), cellStyle);
                 if (!revenue.getIsRecurring()) {
@@ -99,7 +113,7 @@ public class ReportService {
                 Row row = sheet.createRow(rowIdx++);
                 createStyledCell(row, 0, "Expense", cellStyle);
                 createStyledCell(row, 1, expense.getDate().toString(), cellStyle);
-                createStyledCell(row, 2, "R" + df.format(expense.getAmount().doubleValue()), cellStyle);
+                createStyledCell(row, 2, "R" + df.format(expense.getAmount().doubleValue()), redCellStyle);
                 createStyledCell(row, 3, expense.getCategory(), cellStyle);
                 createStyledCell(row, 4, expense.getDescription(), cellStyle);
                 if (!expense.getIsRecurring()) {

@@ -36,12 +36,41 @@ public class EmailService {
             MimeMessageHelper message = new MimeMessageHelper(simpleMessage, true);
             message.setTo(email);
             message.setSubject("PerFinancial - Your Verification Code");
-            message.setText("Your verification code is: <strong>" + code + "</strong><br><br><strong>Kind Regards</strong><br><strong>PerFinancial</strong>", true);
+            message.setText("Your verification code is: <strong>" + code + "</strong> 👀<br><br><strong>Kind Regards</strong><br><strong>PerFinancial</strong>", true);
             mailSender.send(simpleMessage);
         } catch (MessagingException e) {
             throw new MailSendException("Failed to send email to " + email, e);
         }
-        
+    }
+
+    public void sendRegistrationEmail(String email) {
+        MimeMessage simpleMessage = mailSender.createMimeMessage();
+
+        try {
+            MimeMessageHelper message = new MimeMessageHelper(simpleMessage, true);
+            message.setTo(email);
+            message.setSubject("PerFinancial - Successful Registration");
+            message.setText("Good day, <br><br>You have successfully registered your account on PerFinancial! 😁<br><br>Enjoy, and be sure to be in touch with us if you experience any problems (perfinancial@helpdesk.com)." +
+                            "<br><br><strong>Kind Regards</strong><br><strong>PerFinancial</strong>", true);
+            mailSender.send(simpleMessage);
+        } catch (MessagingException e) {
+            throw new MailSendException("Failed to send email to " + email, e);
+        } 
+    }
+
+    public void sendDeletionEmail(String email) {
+        MimeMessage simpleMessage = mailSender.createMimeMessage();
+
+        try {
+            MimeMessageHelper message = new MimeMessageHelper(simpleMessage, true);
+            message.setTo(email);
+            message.setSubject("PerFinancial - Account Deleted");
+            message.setText("Good day, <br><br>Your PerFinancial account has been deleted successfully!<br><br>We're really sad to see you go, but thank you for using our services. All the best! 😊" +
+                            "<br><br><strong>Kind Regards</strong><br><strong>PerFinancial</strong>", true);
+            mailSender.send(simpleMessage);
+        } catch (MessagingException e) {
+            throw new MailSendException("Failed to send email to " + email, e);
+        } 
     }
 
 }

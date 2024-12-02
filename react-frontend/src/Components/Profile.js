@@ -145,16 +145,33 @@ function Profile({ setIsAuthenticated }) {
                 await axios.delete(`http://localhost:8080/users/${userId}`);
                 
                 // Clear user data and localStorage
-                localStorage.removeItem('id');
-                localStorage.removeItem('token'); // If you're storing a token in localStorage
+                // localStorage.removeItem('id');
+                // localStorage.removeItem('token'); // If you're storing a token in localStorage
+
+                setIsAuthenticated(false);
+                console.log('Authentication => False');
+
+                localStorage.clear();
+                sessionStorage.clear();
+                deleteSessionCookie();
                 
                 // Redirect to login or welcome page
                 navigate('/');
             } catch (error) {
                 console.error('Error deleting user account: ', error);
-                alert("An error occurred while deleting your account.");
+                alert("An error occurred while deleting your account. Please try again later.");
             }
         }
+    };
+
+    const deleteSessionCookie = () => {
+        // Delete the "SESSION" cookie for path "/"
+        document.cookie = "SESSION=;expires=Thu, 01 Jan 1970 00:00:00 UTC;path=/;SameSite=Lax;domain=localhost";
+        
+        // Optionally, you can add the "Secure" flag if the cookie was set with it
+        document.cookie = "SESSION=;expires=Thu, 01 Jan 1970 00:00:00 UTC;path=/;Secure;SameSite=Lax;domain=localhost";
+    
+        console.log('SESSION cookie deleted!');
     };
 
     return (

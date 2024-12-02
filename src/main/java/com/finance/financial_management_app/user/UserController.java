@@ -6,14 +6,13 @@ import com.finance.financial_management_app.expense.Expense;
 import com.finance.financial_management_app.expense.ExpenseRepository;
 import com.finance.financial_management_app.revenue.Revenue;
 import com.finance.financial_management_app.revenue.RevenueRepository;
+import com.finance.financial_management_app.security.EmailService;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
+import java.util.*;
 
 @RestController
 @RequestMapping("/users")
@@ -23,12 +22,14 @@ public class UserController {
     private final UserRepository userRepository;
     private final RevenueRepository revenueRepository;
     private final ExpenseRepository expenseRepository;
+    private final EmailService emailService;
 
-    public UserController(UserService userService, UserRepository userRepository, RevenueRepository revenueRepository, ExpenseRepository expenseRepository) {
+    public UserController(UserService userService, UserRepository userRepository, RevenueRepository revenueRepository, ExpenseRepository expenseRepository, EmailService emailService) {
         this.userService = userService;
         this.userRepository = userRepository;
         this.revenueRepository = revenueRepository;
         this.expenseRepository = expenseRepository;
+        this.emailService = emailService;
     }
 
     // Get all users
@@ -68,6 +69,7 @@ public class UserController {
     public ResponseEntity<String> registerUser(@Validated(User.Create.class) @RequestBody User user) {
         try {
             userService.registerUser(user);
+            emailService.sendRegistrationEmail(user.getEmail());
             return ResponseEntity.ok("User Registered Successfully");
         } catch (IllegalArgumentException e) {
             return ResponseEntity.badRequest().body(e.getMessage());
@@ -119,6 +121,9 @@ public class UserController {
             for (Expense expense : expenses) {
                 expenseRepository.delete(expense);
             }
+
+            // Send email for successful deletion
+            emailService.sendDeletionEmail(existingUser.getEmail());
 
             // Delete the user
             userRepository.delete(existingUser);
