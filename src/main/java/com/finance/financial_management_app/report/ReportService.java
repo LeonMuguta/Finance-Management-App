@@ -143,8 +143,8 @@ public class ReportService {
                 createStyledCell(sheet.getRow(rowIdx - 1), 1, "R" + df.format(budget.getNetBalanceGoal().doubleValue()), cellStyle);
             } else {
                 Row noDataRow = sheet.createRow(rowIdx++);
-                createStyledCell(noDataRow, 0, "No budget goals set for this month.", cellStyle);
-                sheet.addMergedRegion(new CellRangeAddress(noDataRow.getRowNum(), noDataRow.getRowNum(), 0, 4));
+                createMergedStyledCell(noDataRow, 0, "No budget goals set for this month.", cellStyle, sheet, 0, 1);
+
             }
 
             workbook.write(out);
