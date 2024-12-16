@@ -2,10 +2,10 @@ package com.finance.financial_management_app.user;
 
 import org.springframework.web.bind.annotation.*;
 
-import com.finance.financial_management_app.expense.Expense;
-import com.finance.financial_management_app.expense.ExpenseRepository;
-import com.finance.financial_management_app.revenue.Revenue;
-import com.finance.financial_management_app.revenue.RevenueRepository;
+import com.finance.financial_management_app.budget.*;
+import com.finance.financial_management_app.expense.*;
+import com.finance.financial_management_app.revenue.*;
+import com.finance.financial_management_app.verify.*;
 import com.finance.financial_management_app.security.EmailService;
 
 import org.springframework.http.HttpStatus;
@@ -22,13 +22,17 @@ public class UserController {
     private final UserRepository userRepository;
     private final RevenueRepository revenueRepository;
     private final ExpenseRepository expenseRepository;
+    private final BudgetRepository budgetRepository;
+    private final VerifyCodeRepository verifyCodeRepository;
     private final EmailService emailService;
 
-    public UserController(UserService userService, UserRepository userRepository, RevenueRepository revenueRepository, ExpenseRepository expenseRepository, EmailService emailService) {
+    public UserController(UserService userService, UserRepository userRepository, RevenueRepository revenueRepository, ExpenseRepository expenseRepository, BudgetRepository budgetRepository, VerifyCodeRepository verifyCodeRepository, EmailService emailService) {
         this.userService = userService;
         this.userRepository = userRepository;
         this.revenueRepository = revenueRepository;
         this.expenseRepository = expenseRepository;
+        this.budgetRepository = budgetRepository;
+        this.verifyCodeRepository = verifyCodeRepository;
         this.emailService = emailService;
     }
 
@@ -122,11 +126,22 @@ public class UserController {
                 expenseRepository.delete(expense);
             }
 
-            // Send email for successful deletion
-            emailService.sendDeletionEmail(existingUser.getEmail());
+            // Delete the budget goals linked to that specific user
+            List<Budget> budgets = budgetRepository.findByUser(existingUser);
+            for (Budget budget : budgets) {
+                budgetRepository.delete(budget);
+            }
+
+            List<VerifyCode> verify = verifyCodeRepository.findByUser(existingUser);
+            for (VerifyCode ver : verify) {
+                verifyCodeRepository.delete(ver);
+            }
 
             // Delete the user
             userRepository.delete(existingUser);
+
+            // Send email for successful deletion
+            emailService.sendDeletionEmail(existingUser.getEmail());
             
             // Return success response
             return ResponseEntity.ok("User Successfully Deleted");
