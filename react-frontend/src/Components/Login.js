@@ -10,6 +10,7 @@ function Login({ setIsAuthenticated }) {
     });
     const [error, setError] = useState('');
     const [success, setSuccess] = useState('');
+    const [isDisabled, setIsDisabled] = useState(false);
     const navigate = useNavigate();
 
     const handleChange = (e) => {
@@ -22,6 +23,8 @@ function Login({ setIsAuthenticated }) {
     const handleSubmit = async (e) => {
         e.preventDefault();
         setError('');
+        setIsDisabled(true);
+
         try {
             const response = await axios.post('http://localhost:8080/api/auth/login', formData, { withCredentials: true });
             if (response.status === 200) {
@@ -52,6 +55,8 @@ function Login({ setIsAuthenticated }) {
                 
             }
         } catch (err) {
+            setIsDisabled(false); // Re-enable the button in case of an error
+
             // Handle error response
             if (err.response) {
                 // Server responded with a status other than 2xx
@@ -87,7 +92,7 @@ function Login({ setIsAuthenticated }) {
                 required 
                 />
 
-                <button type="submit" className="loginBtn">Log In</button>
+                <button type="submit" className="loginBtn" disabled={isDisabled}>Log In</button>
                 {error && <p className="error">{ error }</p>}
                 {success && <p className="success">{ success }</p>}
             </form>

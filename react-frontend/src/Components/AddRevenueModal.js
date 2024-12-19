@@ -17,6 +17,8 @@ const AddRevenueModal = ({ isOpen, onClose, onAddRevenue, editingRevenue  }) => 
             setUserId(storedUserId);
         }
 
+        const today = new Date().toISOString().split('T')[0];
+
         // If editing a revenue, populate the form fields with its data
         if (editingRevenue) {
             setAmount(editingRevenue.amount);
@@ -30,7 +32,7 @@ const AddRevenueModal = ({ isOpen, onClose, onAddRevenue, editingRevenue  }) => 
             setCategory('');
             setDescription('');
             setIsRecurring(false);
-            setDate('');
+            setDate(today);
         }
     }, [editingRevenue]);
 

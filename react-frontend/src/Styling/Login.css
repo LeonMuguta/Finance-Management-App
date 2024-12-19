@@ -48,6 +48,11 @@
     background-color: #0056b3;
 }
 
+.loginBtn:disabled {
+    background-color: grey;
+    cursor: not-allowed;
+}
+
 .backButton {
     position: absolute;
     top: 20px;

@@ -83,6 +83,7 @@ function Home({ setIsAuthenticated }) {
 
     // Calculate the net balance
     const netBalance = totalRevenue - totalExpense;
+    const netPercentage = (totalExpense / totalRevenue) * 100;
 
     // Fetch all transactions to display summary (Of the current month) on home page 
     useEffect(() => {
@@ -189,7 +190,10 @@ function Home({ setIsAuthenticated }) {
                                 <i className="fa fa-check-circle" aria-hidden="true"></i>
                                 Net Balance
                             </h4>
-                            <p className={netBalance > 0 ? 'positiveBalance' : netBalance < 0 ? 'negativeBalance' : 'zeroBalance'}>
+                            {/* <p className={netBalance > 0 ? 'positiveBalance' : netBalance < 0 ? 'negativeBalance' : 'zeroBalance'}>
+                                R{netBalance.toLocaleString()}
+                            </p> */}
+                            <p className={netPercentage < 50 ? 'positiveBalance' : netPercentage >= 50 && netPercentage < 75 ? 'yellowWarning' : netPercentage >= 75 && netPercentage < 89 ? 'orangeWarning' : netPercentage >= 89 ? 'negativeBalance' : 'zeroBalance'}>
                                 R{netBalance.toLocaleString()}
                             </p>
                         </div>

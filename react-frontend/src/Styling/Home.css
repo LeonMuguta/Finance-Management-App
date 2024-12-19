@@ -79,6 +79,14 @@ h2 {
     color: black;
 }
 
+.yellowWarning {
+    color: rgb(255, 208, 0);
+}
+
+.orangeWarning {
+    color: rgb(255, 145, 0);
+}
+
 /* Goals section styling */
 .goalsSection {
     background-color: #fff;

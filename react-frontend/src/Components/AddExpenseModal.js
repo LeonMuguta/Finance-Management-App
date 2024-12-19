@@ -17,6 +17,8 @@ function AddExpenseModal({ isOpen, onClose, onAddExpense, editingExpense  }) {
             setUserId(storedUserId);
         }
 
+        const today = new Date().toISOString().split('T')[0];
+
         // If editing an expense, populate the form fields with its data
         if (editingExpense) {
             setAmount(editingExpense.amount);
@@ -30,7 +32,7 @@ function AddExpenseModal({ isOpen, onClose, onAddExpense, editingExpense  }) {
             setCategory('');
             setDescription('');
             setIsRecurring(false);
-            setDate('');
+            setDate(today);
         }
     }, [editingExpense]);
 

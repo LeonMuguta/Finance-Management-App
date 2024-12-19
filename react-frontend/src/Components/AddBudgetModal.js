@@ -123,23 +123,23 @@ function AddBudgetModal({ isOpen, onClose, onAddBudget, editingBudget }) {
                         />
                     </label>
                     <label>
-                        Minimum Revenue Goal
+                        Maximum Revenue Goal
                         <input 
                             type="number" 
                             value={minRevenue} 
                             onChange={(e) => setMinRevenue(e.target.value)} 
                             required 
                         />
-                    </label>                    
+                    </label>
                     <label>
-                        Maximum Expense Goal
+                        Minimum Expense Goal
                         <input 
                             type="number" 
                             value={maxExpense} 
                             onChange={(e) => setMaxExpense(e.target.value)} 
                             required 
                         />
-                    </label>                    
+                    </label>
                     <label>
                         Net Balance Goal
                         <input 
