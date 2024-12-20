@@ -10,6 +10,7 @@ import java.util.Optional;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 
+import com.finance.financial_management_app.budget.BudgetService;
 import com.finance.financial_management_app.user.User;
 import com.finance.financial_management_app.user.UserRepository;
 import com.finance.financial_management_app.user.UserService;
@@ -21,12 +22,14 @@ public class ExpenseController {
     private final ExpenseRepository expenseRepository;
     private final UserService userService;
     private final UserRepository userRepository;
+    private final BudgetService budgetService;
 
-    public ExpenseController(ExpenseService expenseService, ExpenseRepository expenseRepository, UserService userService, UserRepository userRepository) {
+    public ExpenseController(ExpenseService expenseService, ExpenseRepository expenseRepository, UserService userService, UserRepository userRepository, BudgetService budgetService) {
         this.expenseService = expenseService;
         this.expenseRepository = expenseRepository;
         this.userService = userService;
         this.userRepository = userRepository;
+        this.budgetService = budgetService;
     }
 
     // Get all expense transactions
@@ -83,6 +86,8 @@ public class ExpenseController {
             expense.setUser(user);
             
             expenseRepository.save(expense);
+            budgetService.checkAndSendExpenseWarning(user);
+
             return ResponseEntity.ok("Expense Transaction Successfully Created");
         } catch (IllegalArgumentException e) {
             // Log any exceptions for debugging
@@ -109,8 +114,12 @@ public class ExpenseController {
         Optional<Expense> expense = expenseRepository.findById(id);
 
         if (expense.isPresent()) {
+            Expense existingExpense = expense.get();
+
             // Delete the expense transaction
             expenseRepository.delete(expense.get());
+
+            budgetService.checkAndSendExpenseWarning(existingExpense.getUser());
 
             // Return success response
             return ResponseEntity.ok("Expense Transaction Successfully Deleted");

@@ -15,6 +15,7 @@ function SignUp() {
 
     const [errorMessage, setErrorMessage] = useState('');
     const [successMessage, setSuccessMessage] = useState('');
+    const [isDisabled, setIsDisabled] = useState(false);
     const navigate = useNavigate();
 
     const handleChange = (e) => {
@@ -26,6 +27,7 @@ function SignUp() {
     e.preventDefault();
     setErrorMessage('');
     setSuccessMessage('');
+    setIsDisabled(true);
 
     if (formData.password !== formData.confirmPassword) {
         setErrorMessage("Passwords do not match.");
@@ -41,6 +43,8 @@ function SignUp() {
             navigate('/home');
         }, 5000);
     } catch (error) {
+        setIsDisabled(false); // Re-enable the button in case of an error
+
         if (error.response) {
             setErrorMessage(error.response.data);
         } else {
@@ -61,7 +65,8 @@ function SignUp() {
             placeholder="First Name"
             value={formData.firstName} 
             onChange={handleChange} 
-            required 
+            required
+            disabled={isDisabled}
             />
 
             <input 
@@ -70,7 +75,8 @@ function SignUp() {
             placeholder="Surname" 
             value={formData.surname} 
             onChange={handleChange} 
-            required 
+            required
+            disabled={isDisabled}
             />
 
             <input 
@@ -79,7 +85,8 @@ function SignUp() {
             placeholder="Email"
             value={formData.email} 
             onChange={handleChange} 
-            required 
+            required
+            disabled={isDisabled}
             />
 
             <input 
@@ -87,7 +94,8 @@ function SignUp() {
             name="dateOfBirth" 
             value={formData.dateOfBirth} 
             onChange={handleChange} 
-            required 
+            required
+            disabled={isDisabled}
             />
 
             <select 
@@ -95,6 +103,7 @@ function SignUp() {
             value={formData.gender} 
             onChange={handleChange}
             required
+            disabled={isDisabled}
             >
             <option value="MALE">Male</option>
             <option value="FEMALE">Female</option>
@@ -107,7 +116,8 @@ function SignUp() {
             placeholder="Password"
             value={formData.password} 
             onChange={handleChange} 
-            required 
+            required
+            disabled={isDisabled}
             />
 
             <input 
@@ -116,10 +126,11 @@ function SignUp() {
             placeholder="Confirm Password"
             value={formData.confirmPassword} 
             onChange={handleChange} 
-            required 
+            required
+            disabled={isDisabled} 
             />
 
-            <button type="submit" className="signupBtn">Sign Up</button>
+            <button type="submit" className="signupBtn" disabled={isDisabled}>Sign Up</button>
 
             {errorMessage && <div className="error">{errorMessage}</div>}
             {successMessage && <div className="success">{successMessage}</div>}

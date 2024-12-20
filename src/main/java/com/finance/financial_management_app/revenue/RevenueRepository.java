@@ -21,4 +21,7 @@ public interface RevenueRepository extends JpaRepository<Revenue, Integer> {
 
     @Query("SELECT SUM(r.amount) FROM Revenue r WHERE MONTH(r.date) = :month AND YEAR(r.date) = :year AND r.user = :user")
     double sumByMonthAndYear(@Param("month") int month, @Param("year") int year, @Param("user") User user);
+
+    @Query("SELECT COALESCE(SUM(r.amount), 0) FROM Revenue r WHERE r.user.id = :userId AND MONTH(r.date) = MONTH(CURRENT_DATE) AND YEAR(r.date) = YEAR(CURRENT_DATE)")
+    double getTotalRevenueByUser(@Param("userId") int userId);
 }

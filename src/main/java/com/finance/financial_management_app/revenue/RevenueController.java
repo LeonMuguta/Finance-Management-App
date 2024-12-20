@@ -10,6 +10,7 @@ import java.util.Optional;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 
+import com.finance.financial_management_app.budget.BudgetService;
 import com.finance.financial_management_app.user.User;
 import com.finance.financial_management_app.user.UserRepository;
 import com.finance.financial_management_app.user.UserService;
@@ -21,12 +22,14 @@ public class RevenueController {
     private final RevenueRepository revenueRepository;
     private final UserService userService;
     private final UserRepository userRepository;
+    private final BudgetService budgetService;
 
-    public RevenueController(RevenueService revenueService, RevenueRepository revenueRepository, UserService userService, UserRepository userRepository) {
+    public RevenueController(RevenueService revenueService, RevenueRepository revenueRepository, UserService userService, UserRepository userRepository, BudgetService budgetService) {
         this.revenueService = revenueService;
         this.revenueRepository = revenueRepository;
         this.userService = userService;
         this.userRepository = userRepository;
+        this.budgetService = budgetService;
     }
 
     // Get all revenue transactions
@@ -83,6 +86,8 @@ public class RevenueController {
             revenue.setUser(user);
 
             revenueRepository.save(revenue);
+            budgetService.checkAndSendExpenseWarning(user);
+
             return ResponseEntity.ok("Revenue Transaction Successfully Created");
         } catch (IllegalArgumentException e) {
             // Log any exceptions for debugging
@@ -109,8 +114,12 @@ public class RevenueController {
         Optional<Revenue> revenue = revenueRepository.findById(id);
 
         if (revenue.isPresent()) {
+            Revenue existingRevenue = revenue.get();
+
             // Delete the revenue transaction
-            revenueRepository.delete(revenue.get());
+            revenueRepository.delete(existingRevenue);
+
+            budgetService.checkAndSendExpenseWarning(existingRevenue.getUser());
             
             // Return success response
             return ResponseEntity.ok("Revenue Transaction Successfully Deleted");

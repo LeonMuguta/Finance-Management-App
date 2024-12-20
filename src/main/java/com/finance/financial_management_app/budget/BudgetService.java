@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import com.finance.financial_management_app.expense.ExpenseRepository;
 import com.finance.financial_management_app.revenue.RevenueRepository;
 import com.finance.financial_management_app.security.EmailService;
+import com.finance.financial_management_app.user.User;
 
 @Service
 public class BudgetService {
@@ -73,6 +74,29 @@ public class BudgetService {
                 emailService.sendEmail(goal.getUser().getEmail(), "Monthly Budget Report", emailBody);
                 System.out.println("Email sent to user");
             }
+        }
+    }
+
+    // Method to check revenues compared to expenses and sends warnings based on the amount spent
+    public void checkAndSendExpenseWarning(User user) {
+        double totalRevenue = revenueRepository.getTotalRevenueByUser(user.getId());
+        double totalExpense = expenseRepository.getTotalExpensesByUser(user.getId());
+
+        if (totalRevenue > 0 && totalExpense / totalRevenue >= 0.5 && totalExpense / totalRevenue < 0.75) {
+
+            emailService.sendFirstWarningEmail(user.getEmail());
+            System.out.println("50%-74% expense warning email sent");
+
+        } else if (totalRevenue > 0 && totalExpense / totalRevenue >= 0.75 && totalExpense / totalRevenue < 0.9) {
+
+            emailService.sendSecondWarningEmail(user.getEmail());
+            System.out.println("75%-89% expense warning email sent");
+
+        } else if (totalRevenue > 0 && totalExpense / totalRevenue >= 0.9) {
+
+            emailService.sendThirdWarningEmail(user.getEmail());
+            System.out.println(">90% expense warning email sent");
+
         }
     }
 }

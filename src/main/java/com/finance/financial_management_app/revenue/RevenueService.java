@@ -9,6 +9,7 @@ import java.time.LocalDate;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
+import com.finance.financial_management_app.budget.BudgetService;
 import com.finance.financial_management_app.security.EmailService;
 import com.finance.financial_management_app.user.User;
 import com.finance.financial_management_app.user.UserRepository;
@@ -18,11 +19,13 @@ public class RevenueService {
     private final RevenueRepository revenueRepository;
     private final UserRepository userRepository;
     private final EmailService emailService;
+    private final BudgetService budgetService;
 
-    public RevenueService(RevenueRepository revenueRepository, UserRepository userRepository, EmailService emailService) {
+    public RevenueService(RevenueRepository revenueRepository, UserRepository userRepository, EmailService emailService, BudgetService budgetService) {
         this.revenueRepository = revenueRepository;
         this.userRepository = userRepository;
         this.emailService = emailService;
+        this.budgetService = budgetService;
     }
 
     // Updating revenue transaction details
@@ -61,6 +64,7 @@ public class RevenueService {
             revenue.setUser(user);
             
             revenueRepository.save(revenue);
+            budgetService.checkAndSendExpenseWarning(user);
             
         } else {
             throw new IllegalArgumentException("Transaction not found");

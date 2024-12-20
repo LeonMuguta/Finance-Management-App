@@ -80,7 +80,8 @@ function Login({ setIsAuthenticated }) {
                 name="email" 
                 value={formData.email} 
                 onChange={handleChange} 
-                required 
+                required
+                disabled={isDisabled}
                 />
 
                 <label>Password</label>
@@ -89,7 +90,8 @@ function Login({ setIsAuthenticated }) {
                 name="password" 
                 value={formData.password} 
                 onChange={handleChange} 
-                required 
+                required
+                disabled={isDisabled}
                 />
 
                 <button type="submit" className="loginBtn" disabled={isDisabled}>Log In</button>

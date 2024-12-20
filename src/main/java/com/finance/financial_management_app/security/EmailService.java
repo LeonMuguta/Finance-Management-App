@@ -73,4 +73,49 @@ public class EmailService {
         } 
     }
 
+    public void sendFirstWarningEmail(String email) {
+        MimeMessage simpleMessage = mailSender.createMimeMessage();
+
+        try {
+            MimeMessageHelper message = new MimeMessageHelper(simpleMessage, true);
+            message.setTo(email);
+            message.setSubject("PerFinancial - Expenses Warning");
+            message.setText("Good day, <br><br>Please note that your expenses have taken between 50%-74% or more of your total Revenue. ⚠️<br><br>You may want to reduce your spending just a bit in order to meet your goals. 💡" +
+                            "<br><br><strong>Kind Regards</strong><br><strong>PerFinancial</strong>", true);
+            mailSender.send(simpleMessage);
+        } catch (MessagingException e) {
+            throw new MailSendException("Failed to send email to " + email, e);
+        } 
+    }
+
+    public void sendSecondWarningEmail(String email) {
+        MimeMessage simpleMessage = mailSender.createMimeMessage();
+
+        try {
+            MimeMessageHelper message = new MimeMessageHelper(simpleMessage, true);
+            message.setTo(email);
+            message.setSubject("PerFinancial - Expenses Warning");
+            message.setText("Good day, <br><br>Please note that your expenses have taken between 75%-89% of your total Revenue. ⚠️<br><br>You may want to reduce your spending just a bit in order to meet your goals. 💡" +
+                            "<br><br><strong>Kind Regards</strong><br><strong>PerFinancial</strong>", true);
+            mailSender.send(simpleMessage);
+        } catch (MessagingException e) {
+            throw new MailSendException("Failed to send email to " + email, e);
+        } 
+    }
+
+    public void sendThirdWarningEmail(String email) {
+        MimeMessage simpleMessage = mailSender.createMimeMessage();
+
+        try {
+            MimeMessageHelper message = new MimeMessageHelper(simpleMessage, true);
+            message.setTo(email);
+            message.setSubject("PerFinancial - Expenses Warning");
+            message.setText("Good day, <br><br>Please note that your expenses have taken up 90% or more of your total Revenue. ⚠️<br><br>You may want to reduce your spending just a bit in order to meet your goals. 💡" +
+                            "<br><br><strong>Kind Regards</strong><br><strong>PerFinancial</strong>", true);
+            mailSender.send(simpleMessage);
+        } catch (MessagingException e) {
+            throw new MailSendException("Failed to send email to " + email, e);
+        } 
+    }
+
 }

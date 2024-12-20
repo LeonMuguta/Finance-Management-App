@@ -40,15 +40,18 @@
 .welcomeNav h1 {
     margin-bottom: 20px;  /* Adds spacing between h1 and p */
     font-family: 'Roboto', sans-serif;
+    background: rgba(299, 299, 299, .8);
 }
 
 .welcomeNav p {
     margin-bottom: 25px;  /* Adds spacing between p and buttons */
+    background: rgba(299, 299, 299, .8);
 }
 
 .welcomeButtons {
     display: flex;
     gap: 10px;  /* Space between the buttons */
+    background: rgba(299, 299, 299, .8);
 }
 
 /* Button Styles */
