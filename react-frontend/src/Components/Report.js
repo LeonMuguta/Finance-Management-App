@@ -20,7 +20,7 @@ function Report({ setIsAuthenticated }) {
             });
             
             if (response.status === 404) {
-                alert("Report cannot be downloaded: No info present for the selected Month and Year.");
+                alert("Report cannot be downloaded, no info available for the selected Month and Year.");
                 return;
             }
 

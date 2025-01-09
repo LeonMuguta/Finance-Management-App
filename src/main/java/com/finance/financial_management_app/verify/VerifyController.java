@@ -33,6 +33,11 @@ public class VerifyController {
 
         if (codeOptional.isPresent() && codeOptional.get().getExpirationTime().isAfter(LocalDateTime.now())) {
             // Code is valid and not expired
+            VerifyCode verifyCode = codeOptional.get();
+            verifyCode.setExpirationTime(LocalDateTime.now());
+
+            verifyCodeRepository.save(verifyCode);
+
             return ResponseEntity.ok("Login Successful");
         } else {
             return ResponseEntity.status(402).body("Invalid or expired verification code");
